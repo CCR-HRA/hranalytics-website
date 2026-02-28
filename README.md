@@ -13,6 +13,8 @@ Abre **http://localhost:5173/** (o el puerto que indique la terminal).
 
 ## ⚙️ Configuración completa
 
+**Analytics:** Si defines ambos `VITE_GTM_ID` y `VITE_GA_ID`, el proyecto usa solo GTM (el script de GA no se carga). Canonical y meta OG en `index.html` están fijados a la URL de producción; para otros entornos, edita `index.html` o usa un plugin de build que inyecte `VITE_SITE_URL`.
+
 **Guías:**
 - Configuración (formulario, SEO, analytics): [`docs/GUIA_CONFIGURACION.md`](docs/GUIA_CONFIGURACION.md)
 - Despliegue (Vercel, Netlify): [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)
@@ -29,7 +31,7 @@ cp .env.example .env   # Luego edita .env con tus valores
 | `VITE_APPS_SCRIPT_URL` | Formulario de contacto (Apps Script) | Recomendado |
 | `VITE_GOOGLE_SITE_VERIFICATION` | Search Console | Opcional |
 | `VITE_GTM_ID` | Google Tag Manager | Opcional |
-| `VITE_GA_ID` | Google Analytics 4 | Opcional |
+| `VITE_GA_ID` | Google Analytics 4 | Opcional (si `VITE_GTM_ID` está definido, solo se usa GTM; GA se ignora) |
 | `VITE_CALENDAR_BOOKING_URL` | Enlace a calendario de citas | Opcional |
 
 ## 🚀 Desplegar en Vercel

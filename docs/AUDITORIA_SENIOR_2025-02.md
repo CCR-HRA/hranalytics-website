@@ -276,9 +276,20 @@ No hay duplicidad entre megaServices y extendedServices; megaServices fue elimin
 
 ## Recomendaciones finales (ordenadas)
 
-1. **Quick win:** Arreglar los 4 errores de lint (PageLoader hooks, Header variable no usada, scroll.js catch, useReducedMotion si aplica).
-2. Añadir script de verificación en CI: `npm run lint && npm run build`.
-3. Opcional: retrasar scroll cuando hay hash (patch en ScrollManager) para evitar ejecutar bajo el PageLoader.
-4. Documentar en README o .env.example: uso de GTM vs GA, variables VITE_* necesarias, y que canonical/OG no se inyectan desde env en build.
+1. **Quick win:** ~~Arreglar los 4 errores de lint~~ **Aplicado** (PageLoader, Header, scroll.js, useReducedMotion).
+2. ~~Añadir script de verificación en CI~~ **Aplicado:** `lint:ci` en package.json; en CI ejecutar `npm run lint && npm run build`.
+3. ~~Opcional: retrasar scroll cuando hay hash~~ **Aplicado:** ScrollManager usa `INITIAL_DELAY_WHEN_HASH_MS = 850` cuando hay hash.
+4. ~~Documentar en README~~ **Aplicado:** README indica GTM vs GA (solo GTM si ambos están definidos) y que canonical/OG no se inyectan desde env.
 5. Valorar tests E2E o unitarios para scroll a sección, envío de formulario y rutas críticas.
-6. Valorar chunk `vendor-lucide` y, si se usa otro dominio, inyección de `VITE_SITE_URL` en index.html para OG/canonical.
+6. ~~Valorar chunk vendor-lucide~~ **Aplicado:** `vite.config.js` incluye `vendor-lucide: ['lucide-react']`.
+
+---
+
+## Pasos aplicados (branch audit-fixes)
+
+| # | Mejora | Archivo(s) |
+|---|--------|------------|
+| 1 | Delay scroll cuando hay hash (evitar scroll bajo PageLoader) | `src/components/ScrollManager.jsx` |
+| 2 | Script `lint:ci` para CI | `package.json` |
+| 3 | Chunk `vendor-lucide` | `vite.config.js` |
+| 4 | Documentación GTM/GA y canonical/OG | `README.md` |

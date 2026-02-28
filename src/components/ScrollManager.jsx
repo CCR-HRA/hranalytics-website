@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { scrollToSection } from '../utils/scroll'
 
 const INITIAL_DELAY_MS = 150
+const INITIAL_DELAY_WHEN_HASH_MS = 850 // después de PageLoader ~700ms para no hacer scroll bajo el overlay
 const RETRY_DELAYS_MS = [100, 300, 600, 1200, 2000]
 
 export default function ScrollManager() {
@@ -33,7 +34,8 @@ export default function ScrollManager() {
       timersRef.current.push(t)
     }
 
-    const t0 = setTimeout(() => attempt(0), INITIAL_DELAY_MS)
+    const delay = effectiveHash ? INITIAL_DELAY_WHEN_HASH_MS : INITIAL_DELAY_MS
+    const t0 = setTimeout(() => attempt(0), delay)
     timersRef.current.push(t0)
 
     return () => {
