@@ -1,0 +1,276 @@
+/* McKinsey-inspired: editorial, capability-focused */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Reset: elimina márgenes y padding predeterminados del navegador */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@layer base {
+  :root {
+    --section-padding-y: 2.5rem;
+    --section-padding-y-lg: 3.5rem;
+    --container-max: 72rem;
+  }
+
+  html, body, #root {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+
+  html {
+    scroll-behavior: auto;
+    scroll-padding-top: var(--header-height, 90px);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Secciones con id: margen para header fijo (scrollIntoView / anclas). Usa --header-height inyectada por Header. */
+  main section[id],
+  main [id] {
+    scroll-margin-top: var(--header-height, 90px);
+    scroll-margin-bottom: 2rem;
+  }
+  main section[id] {
+    isolation: isolate;
+  }
+
+  body {
+    @apply antialiased;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #1a1a1a;
+    line-height: 1.6;
+  }
+
+  /* Títulos de sección: serif para nivel consultora */
+  .section-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .section-title {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  /* H3 de contenido: unificado, tamaño contenido para no competir con H2 */
+  .content-h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #111827;
+    letter-spacing: normal;
+    text-transform: none;
+  }
+
+  /* Etiqueta de pilar de sección (ej. Pilares de servicios) — no usar como h3 genérico */
+  .section-pillar-label {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #216a69;
+  }
+
+  /* Cita destacada (ej. Quiénes somos) */
+  .blockquote-section {
+    font-size: 1rem;
+    font-style: italic;
+    border-left: 3px solid #216a69;
+    padding-left: 1.25rem;
+    color: #374151;
+    line-height: 1.7;
+  }
+
+  /* Contenedor premium: ancho consistente */
+  .container-premium {
+    @apply container mx-auto px-6 lg:px-8;
+    max-width: var(--container-max);
+  }
+
+  /* Encabezado de sección unificado */
+  .section-header {
+    @apply text-center mb-12 lg:mb-16;
+  }
+
+  .section-header .section-eyebrow {
+    @apply mb-4;
+  }
+
+  .section-header .section-title {
+    @apply text-3xl sm:text-4xl lg:text-[2.75rem];
+  }
+
+  /* McKinsey-style capability link (arrow) - enlaces con micro-interacción */
+  .capability-link {
+    @apply inline-flex items-center gap-2 font-semibold text-primary text-sm tracking-wide
+           hover:text-primary-dark transition-colors duration-300;
+  }
+
+  .capability-link:hover svg {
+    @apply translate-x-1;
+  }
+
+  .capability-link svg {
+    @apply transition-transform duration-300;
+  }
+
+  .section-divider {
+    @apply w-12 h-px bg-primary mx-auto;
+  }
+
+  .section-header .section-divider {
+    @apply mt-6;
+  }
+
+  ::selection {
+    background-color: #216a69;
+    color: white;
+  }
+
+  /* Accesibilidad: focus visible para teclado */
+  :focus-visible {
+    outline: 2px solid #216a69;
+    outline-offset: 2px;
+  }
+
+  button:focus:not(:focus-visible),
+  a:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Enlaces: estilos base consistentes */
+  a {
+    @apply transition-colors duration-200;
+  }
+
+  /* Enlace primario (texto con subrayado al hover) */
+  .link-primary {
+    @apply font-medium underline-offset-4 hover:underline transition-colors duration-200;
+  }
+
+
+  /* Botón primario (estilo premium) */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-primary text-white font-semibold text-sm
+           hover:bg-primary-dark transition-all duration-200 shadow-card hover:shadow-card-hover
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+  }
+
+  /* Botón secundario (contorno) */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg border-2 border-primary/30 text-primary font-semibold text-sm
+           bg-primary/5 hover:bg-primary/10 hover:border-primary/50 transition-all duration-200
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+  }
+
+  /* Skip link: oculto por defecto, visible al recibir foco */
+  .skip-link {
+    position: fixed;
+    top: -100px;
+    left: 1rem;
+    z-index: 1000;
+    padding: 12px 16px;
+    background: #216a69;
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.2);
+  }
+
+  .skip-link:focus {
+    top: 1rem;
+    outline: 2px solid white;
+    outline-offset: 2px;
+  }
+
+  /* Vista de página: ocupa el espacio entre header y footer */
+  .page-view {
+    flex: 1 1 0%;
+    min-height: 0;
+    width: 100%;
+    overflow-x: hidden;
+    isolation: isolate;
+  }
+
+  /* Ken Burns: pan + zoom para tablero con vida */
+  .hero-ken-burns {
+    animation: hero-ken-burns 24s ease-in-out infinite;
+  }
+  @keyframes hero-ken-burns {
+    0% {
+      background-position: 50% 50%;
+      background-size: 100%;
+    }
+    25% {
+      background-position: 55% 45%;
+      background-size: 108%;
+    }
+    50% {
+      background-position: 44% 56%;
+      background-size: 105%;
+    }
+    75% {
+      background-position: 53% 52%;
+      background-size: 112%;
+    }
+    100% {
+      background-position: 50% 50%;
+      background-size: 100%;
+    }
+  }
+
+  /* Partículas flotantes: vida sobre el tablero */
+  .hero-particle {
+    animation: hero-particle-float linear infinite;
+  }
+  @keyframes hero-particle-float {
+    0% {
+      transform: translateY(0) translateX(0);
+      opacity: 0;
+    }
+    5% {
+      opacity: 0.4;
+    }
+    50% {
+      opacity: 0.25;
+      transform: translateY(-60vh) translateX(15px);
+    }
+    95% {
+      opacity: 0.35;
+    }
+    100% {
+      transform: translateY(-120vh) translateX(-10px);
+      opacity: 0;
+    }
+  }
+
+  /* Grain textura boutique - sutil */
+  .grain-texture {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 180px 180px;
+  }
+}
+
