@@ -281,7 +281,7 @@ No hay duplicidad entre megaServices y extendedServices; megaServices fue elimin
 3. ~~Opcional: retrasar scroll cuando hay hash~~ **Aplicado:** ScrollManager usa `INITIAL_DELAY_WHEN_HASH_MS = 850` cuando hay hash.
 4. ~~Documentar en README~~ **Aplicado:** README indica GTM vs GA (solo GTM si ambos están definidos) y que canonical/OG no se inyectan desde env.
 5. Valorar tests E2E o unitarios para scroll a sección, envío de formulario y rutas críticas.
-6. ~~Valorar chunk vendor-lucide~~ **Aplicado:** `vite.config.js` incluye `vendor-lucide: ['lucide-react']`.
+6. ~~Valorar chunk vendor-lucide~~ **Aplicado:** `vite.config.js` incluye `vendor-lucide: ['lucide-react']`. **P2:** Mantener imports nombrados (`import { Mail, MessageCircle } from 'lucide-react'`), no `import * as Icons`, para tree-shaking óptimo (verificado: solo `SocialIcon.jsx` usa lucide con named imports).
 
 ---
 
