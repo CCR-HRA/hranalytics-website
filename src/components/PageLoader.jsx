@@ -15,6 +15,16 @@ export default function PageLoader() {
     return () => clearTimeout(timer)
   }, [show])
 
+  // Scroll-lock durante overlay: evita scroll del body bajo el loader.
+  useEffect(() => {
+    if (!show) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = prev || ''
+    }
+  }, [show])
+
   if (prefersReducedMotion || !show) return null
 
   return (

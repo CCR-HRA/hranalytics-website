@@ -6,10 +6,9 @@ import { Link } from 'react-router-dom'
 import ServiceImage from './ServiceImage'
 import { servicesSection as content } from '../data/content'
 
-// Iconos: 1–6 tienen icono propio; 7–14 usan icono genérico
+// Cada servicio tiene su propio icono asociado al nombre
 const getServiceIcon = (id) => {
-  if (id >= 1 && id <= 6) return `/images/s${id}-icon.svg`
-  if (id >= 7 && id <= 14) return '/images/service-icon.svg'
+  if (id >= 1 && id <= 14) return `/images/s${id}-icon.svg`
   return null
 }
 

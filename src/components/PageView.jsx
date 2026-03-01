@@ -4,13 +4,14 @@ import { m, AnimatePresence } from 'framer-motion'
 import { pageView } from '../utils/analytics'
 
 /**
- * Transición de página: entrada/salida simétricas (y: 16 / -16), duración 0.4s.
+ * Transición de página: solo fade para evitar que el contenido quede desplazado.
+ * (y: 16 hacía que cada página apareciera más abajo y se viera texto de la anterior)
  */
 const pageTransition = {
-  initial: { opacity: 0, y: 16 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -16 },
-  transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 },
+  transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
 }
 
 export default function PageView() {

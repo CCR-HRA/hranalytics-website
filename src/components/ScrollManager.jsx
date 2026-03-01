@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
 import { scrollToSection } from '../utils/scroll'
 
@@ -6,9 +6,22 @@ const INITIAL_DELAY_MS = 150
 const INITIAL_DELAY_WHEN_HASH_MS = 850 // después de PageLoader ~700ms para no hacer scroll bajo el overlay
 const RETRY_DELAYS_MS = [100, 300, 600, 1200, 2000]
 
+function scrollToTop() {
+  window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  document.documentElement.scrollTop = 0
+  document.body.scrollTop = 0
+}
+
 export default function ScrollManager() {
   const { pathname, hash, state } = useLocation()
   const timersRef = useRef([])
+
+  // Scroll a top inmediato (antes del paint) al cambiar de página sin hash
+  useLayoutEffect(() => {
+    const effectiveHash = hash ? hash.replace(/^#/, '') : ''
+    const target = effectiveHash ? `#${effectiveHash}` : (state?.scrollTo ?? null)
+    if (!target) scrollToTop()
+  }, [pathname, hash, state])
 
   useEffect(() => {
     timersRef.current.forEach(clearTimeout)
@@ -20,10 +33,7 @@ export default function ScrollManager() {
     const effectiveHash = hash ? hash.replace(/^#/, '') : ''
     const target = effectiveHash ? `#${effectiveHash}` : (state?.scrollTo ?? null)
 
-    if (!target) {
-      window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
-      return
-    }
+    if (!target) return
 
     let cancelled = false
     const attempt = (i) => {
@@ -34,7 +44,11 @@ export default function ScrollManager() {
       timersRef.current.push(t)
     }
 
-    const delay = effectiveHash ? INITIAL_DELAY_WHEN_HASH_MS : INITIAL_DELAY_MS
+    // Si ya estamos en home, delay corto; si venimos de otra página, esperar PageLoader + render
+    const isHome = pathname === '/'
+    const delay = effectiveHash
+      ? (isHome ? 50 : INITIAL_DELAY_WHEN_HASH_MS)
+      : INITIAL_DELAY_MS
     const t0 = setTimeout(() => attempt(0), delay)
     timersRef.current.push(t0)
 

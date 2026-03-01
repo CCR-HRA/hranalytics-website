@@ -155,6 +155,12 @@
     outline-offset: 2px;
   }
 
+  /* Touch: elimina delay de 300ms y flash de highlight en Safari/iOS */
+  button, a, [role="button"] {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
   button:focus:not(:focus-visible),
   a:focus:not(:focus-visible) {
     outline: none;

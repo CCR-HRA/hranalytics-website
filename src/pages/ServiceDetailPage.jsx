@@ -28,8 +28,8 @@ export default function ServiceDetailPage() {
 
   return (
     <div className="flex flex-col bg-gray-50/50 pb-page-bottom">
-      {/* 1. HERO DEL SERVICIO */}
-      <section className="bg-primary text-white pt-24 pb-20 px-4 relative overflow-hidden">
+      {/* 1. HERO DEL SERVICIO — cuadro verde menos alto */}
+      <section className="bg-primary text-white pt-20 pb-12 px-4 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.03)_50%,transparent_100%)] bg-[length:48px_48px]" aria-hidden="true" />
 
         <div className="container mx-auto max-w-5xl relative z-10">

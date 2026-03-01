@@ -21,8 +21,13 @@ export default function MegaMenuPanel({
   // Padding-top alinea el panel con el borde inferior del header (usa --header-height del Header)
   return (
     <div
-      className="fixed inset-x-0 top-0 z-[100] pb-8"
-      style={{ paddingTop: 'var(--header-height, 5.5rem)' }}
+      className="fixed inset-x-0 top-0 left-0 right-0 z-[100] pb-8 isolate"
+      style={{
+        paddingTop: 'calc(var(--header-height, 5.5rem) + env(safe-area-inset-top))',
+        transform: 'translateZ(0)',
+        WebkitTransform: 'translateZ(0)',
+        WebkitOverflowScrolling: 'touch',
+      }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -40,7 +45,7 @@ export default function MegaMenuPanel({
           role="dialog"
           aria-modal="true"
           aria-label={title}
-          className={`shadow-lg ${isDark ? 'bg-navy' : 'bg-white'} border-b ${isDark ? 'border-white/10' : 'border-gray-200'} transition-colors duration-150`}
+          className={`shadow-lg pointer-events-auto ${isDark ? 'bg-navy' : 'bg-white'} border-b ${isDark ? 'border-white/10' : 'border-gray-200'} transition-colors duration-150`}
         >
           <div className="max-w-[72rem] mx-auto px-6 lg:px-8 py-8">
             <div className="flex items-center justify-between border-b pb-4 mb-6 border-gray-200/20">

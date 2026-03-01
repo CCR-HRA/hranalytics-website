@@ -44,7 +44,8 @@ export function useScrollSpy(selectors, offset = 100, options = { enabled: true 
       if (!ticking) {
         window.requestAnimationFrame(() => {
           const scrollY = window.scrollY
-          const sectionOffsets = sectionOffsetsRef.current
+          // Ordenar por posición en página (el DOM tiene #recomendaciones antes de #que-hacemos y #quienes-somos)
+          const sectionOffsets = [...sectionOffsetsRef.current].sort((a, b) => a.top - b.top)
           let currentActive = selectors[0]
 
           for (let i = 0; i < sectionOffsets.length; i++) {

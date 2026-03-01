@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { m, useScroll, useTransform } from 'framer-motion'
 import MagneticButton from './MagneticButton'
 import HeroWordReveal from './HeroWordReveal'
@@ -9,6 +10,7 @@ import { hero as content } from '../data/content'
 
 export default function Hero() {
   const ref = useRef(null)
+  const navigate = useNavigate()
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start start', 'end start'],
@@ -85,6 +87,7 @@ export default function Hero() {
                 onClick={(e) => {
                   e.preventDefault()
                   analytics.ctaClick(content.ctaPrimary, 'hero')
+                  navigate({ pathname: '/', hash: 'contacto' })
                   scrollToSection('#contacto')
                 }}
                 className="inline-flex items-center justify-center min-w-[200px] px-10 py-4 bg-primary hover:bg-primary-dark text-white font-semibold text-sm tracking-wide transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary-dark"

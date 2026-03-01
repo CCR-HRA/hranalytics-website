@@ -7,14 +7,7 @@ import { CONTACT_EMAIL, WHATSAPP_URL, LINKEDIN_URL } from '../../config'
 export const navLinks = [
   { href: '#inicio', label: 'Inicio', isHomeLink: true },
   { href: '#servicios', label: 'Servicios', mega: 'services' },
-  {
-    href: '#que-hacemos',
-    label: 'Enfoque',
-    children: [
-      { href: '/propuesta-de-valor', label: 'Propuesta de Valor', path: '/propuesta-de-valor' },
-      { href: '/nuestro-enfoque', label: 'Nuestro Enfoque', path: '/nuestro-enfoque' },
-    ],
-  },
+  { href: '#que-hacemos', label: 'Enfoque' },
   { href: '#industrias', label: 'Industrias' },
   { href: '#quienes-somos', label: 'Liderazgo' },
   { href: '#recomendaciones', label: 'Casos y Testimonios' },
