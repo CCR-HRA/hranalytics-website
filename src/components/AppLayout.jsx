@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom'
 import SkipLink from './SkipLink'
 import ScrollManager from './ScrollManager'
 import PageLoader from './PageLoader'
@@ -6,9 +7,13 @@ import Footer from './Footer'
 import ScrollProgress from './ScrollProgress'
 import WhatsAppButton from './WhatsAppButton'
 import BackToTop from './BackToTop'
+import ServicesNavButton from './ServicesNavButton'
 import PageView from './PageView'
 
 export default function AppLayout() {
+  const { pathname } = useLocation()
+  const isServicesPage = pathname === '/servicios'
+
   return (
     <div className="flex flex-col min-h-screen bg-white">
       <SkipLink />
@@ -23,7 +28,7 @@ export default function AppLayout() {
 
       <Footer />
       <WhatsAppButton />
-      <BackToTop />
+      {isServicesPage ? <ServicesNavButton /> : <BackToTop />}
     </div>
   )
 }

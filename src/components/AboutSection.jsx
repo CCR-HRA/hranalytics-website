@@ -30,7 +30,7 @@ const socialLinks = SOCIAL_LINKS
 export default function AboutSection() {
   return (
     <section id="quienes-somos" className="relative py-section lg:py-section-lg bg-gray-50/50 overflow-hidden z-[2]">
-      <div className="container-premium max-w-5xl">
+      <div className="container-premium">
         {/* Header */}
         <div className="section-header">
           <p className="section-eyebrow text-primary">

@@ -19,7 +19,8 @@ export default function BackToTop() {
   }, [])
 
   useEffect(() => {
-    setOpen(false)
+    const id = requestAnimationFrame(() => setOpen(false))
+    return () => cancelAnimationFrame(id)
   }, [location.pathname, location.hash])
 
   useEffect(() => {

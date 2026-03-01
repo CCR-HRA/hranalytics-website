@@ -20,6 +20,7 @@ export default function Header() {
 
   const megaCloseTimer = useRef(null)
   const chevronHandledRef = useRef(false)
+  const chevronTimerRef = useRef(null)
   const isMountedRef = useRef(true)
   const menuButtonRef = useRef(null)
   const megaTriggerRef = useRef(null)
@@ -64,6 +65,7 @@ export default function Header() {
     return () => {
       isMountedRef.current = false
       if (megaCloseTimer.current) clearTimeout(megaCloseTimer.current)
+      if (chevronTimerRef.current) clearTimeout(chevronTimerRef.current)
     }
   }, [])
 
@@ -190,6 +192,7 @@ export default function Header() {
       style={{
         '--header-height': headerHeightCss,
         paddingTop: 'env(safe-area-inset-top)',
+        zIndex: megaOpen ? 101 : undefined,
       }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         headerSolid
@@ -252,8 +255,14 @@ export default function Header() {
                     >
                       <Link
                         to={to}
-                        onClick={closeMenus}
-                        className={`${linkClasses} touch-manipulation min-h-[44px] inline-flex items-center shrink-0`}
+                        onClick={(e) => {
+                          closeMenus()
+                          if (link.href?.startsWith('#')) {
+                            e.preventDefault()
+                            handleNavClick(link.href)
+                          }
+                        }}
+                        className={`${linkClasses} touch-manipulation min-h-[44px] inline-flex items-center shrink-0 cursor-pointer`}
                       >
                         {link.label}
                       </Link>
@@ -262,9 +271,13 @@ export default function Header() {
                         ref={megaOpen === triggerMega ? megaTriggerRef : undefined}
                         onPointerDown={(e) => {
                           e.preventDefault()
+                          if (chevronTimerRef.current) clearTimeout(chevronTimerRef.current)
                           chevronHandledRef.current = true
                           setMegaOpen((prev) => (prev === triggerMega ? null : triggerMega))
-                          setTimeout(() => { chevronHandledRef.current = false }, 300)
+                          chevronTimerRef.current = setTimeout(() => {
+                            chevronHandledRef.current = false
+                            chevronTimerRef.current = null
+                          }, 300)
                         }}
                         onClick={(e) => {
                           e.preventDefault()
@@ -277,7 +290,7 @@ export default function Header() {
                         aria-label={megaOpen === triggerMega ? `Cerrar menú de ${link.label}` : `Abrir menú de ${link.label}`}
                         className="relative z-10 p-3 ml-1 rounded text-white hover:text-primary-light hover:bg-white/10 transition-colors touch-manipulation min-h-[48px] min-w-[48px] flex items-center justify-center cursor-pointer select-none shrink-0"
                       >
-                        <svg className={`w-4 h-4 transition-transform duration-200 ${megaOpen === triggerMega ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className={`w-5 h-5 transition-transform duration-200 ${megaOpen === triggerMega ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                         </svg>
                       </button>
@@ -372,18 +385,33 @@ export default function Header() {
                         const flatItems = isCategorized ? panelItems.flatMap((g) => g.items ?? []) : panelItems
                         return (
                           <m.li key={link.href} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.02 }} className="space-y-0">
-                            <button
-                              type="button"
-                              onClick={() => toggleMobileMega(triggerKey)}
-                              aria-expanded={isExpanded}
-                              aria-controls={`mobile-submenu-${triggerKey}`}
-                              className={`flex w-full items-center justify-between font-medium py-3 px-3 rounded-lg transition-colors touch-manipulation min-h-[48px] cursor-pointer select-none ${isActive ? 'text-primary-light bg-white/10' : 'text-white hover:bg-white/5'}`}
-                            >
-                              {link.label}
-                              <svg className={`w-5 h-5 shrink-0 transition-transform ${isExpanded ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                              </svg>
-                            </button>
+                            <div className="flex w-full items-center">
+                              <Link
+                                to={to}
+                                onClick={(e) => {
+                                  closeMenus()
+                                  if (link.href?.startsWith('#')) {
+                                    e.preventDefault()
+                                    handleNavClick(link.href)
+                                  }
+                                }}
+                                className={`flex-1 font-medium py-3 px-3 rounded-lg transition-colors touch-manipulation min-h-[48px] flex items-center cursor-pointer ${isActive ? 'text-primary-light bg-white/10' : 'text-white hover:bg-white/5'}`}
+                              >
+                                {link.label}
+                              </Link>
+                              <button
+                                type="button"
+                                onClick={() => toggleMobileMega(triggerKey)}
+                                aria-expanded={isExpanded}
+                                aria-controls={`mobile-submenu-${triggerKey}`}
+                                aria-label={isExpanded ? `Cerrar menú de ${link.label}` : `Abrir menú de ${link.label}`}
+                                className="p-3 rounded-lg transition-colors touch-manipulation min-h-[48px] min-w-[48px] flex items-center justify-center shrink-0 text-white hover:bg-white/5"
+                              >
+                                <svg className={`w-5 h-5 shrink-0 transition-transform ${isExpanded ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                </svg>
+                              </button>
+                            </div>
                             <div
                               id={`mobile-submenu-${triggerKey}`}
                               className={`overflow-hidden transition-[max-height] duration-200 ease-out ${isExpanded ? 'max-h-[800px]' : 'max-h-0'}`}

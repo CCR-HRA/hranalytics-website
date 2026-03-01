@@ -1,18 +1,18 @@
 import { Suspense, lazy } from "react"
-import { Routes, Route, useParams } from 'react-router-dom'
+import { Routes, Route, Navigate, useParams } from 'react-router-dom'
 import AppLayout from './components/AppLayout'
 import ErrorBoundary from './components/ErrorBoundary'
 import HomePage from './pages/HomePage'
 
 const PropuestaValorPage = lazy(() => import('./pages/PropuestaValorPage'))
 const NuestroEnfoquePage = lazy(() => import('./pages/NuestroEnfoquePage'))
-const ServiceDetailPage = lazy(() => import('./pages/ServiceDetailPage'))
+const AllServicesPage = lazy(() => import('./pages/AllServicesPage'))
 
-// Wrapper para forzar remontaje al cambiar de servicio (evita que el slug quede "pegado")
-function ServiceDetailRoute() {
+function ServiceSlugRedirect() {
   const { slug } = useParams()
-  return <ServiceDetailPage key={slug ?? 'default'} />
+  return <Navigate to={`/servicios#${slug ?? ''}`} replace />
 }
+
 const PrivacidadPage = lazy(() => import('./pages/PrivacidadPage'))
 const TerminosPage = lazy(() => import('./pages/TerminosPage'))
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'))
@@ -31,7 +31,8 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/propuesta-de-valor" element={<ErrorBoundary><Suspense fallback={<PageFallback />}><PropuestaValorPage /></Suspense></ErrorBoundary>} />
           <Route path="/nuestro-enfoque" element={<ErrorBoundary><Suspense fallback={<PageFallback />}><NuestroEnfoquePage /></Suspense></ErrorBoundary>} />
-          <Route path="/servicios/:slug" element={<ErrorBoundary><Suspense fallback={<PageFallback />}><ServiceDetailRoute /></Suspense></ErrorBoundary>} />
+          <Route path="/servicios" element={<ErrorBoundary><Suspense fallback={<PageFallback />}><AllServicesPage /></Suspense></ErrorBoundary>} />
+          <Route path="/servicios/:slug" element={<ServiceSlugRedirect />} />
           <Route path="/privacidad" element={<ErrorBoundary><Suspense fallback={<PageFallback />}><PrivacidadPage /></Suspense></ErrorBoundary>} />
           <Route path="/terminos" element={<ErrorBoundary><Suspense fallback={<PageFallback />}><TerminosPage /></Suspense></ErrorBoundary>} />
           <Route path="*" element={<ErrorBoundary><Suspense fallback={<PageFallback />}><NotFoundPage /></Suspense></ErrorBoundary>} />
