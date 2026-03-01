@@ -74,6 +74,17 @@ export default function Header() {
     }
   }, [isHome])
 
+  // Cerrar mega menú al redimensionar por debajo de lg (1024px): el trigger está oculto
+  // pero el portal sigue visible, causando solapamiento con el menú móvil.
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)')
+    const handler = () => {
+      if (!mq.matches) setMegaOpen(null)
+    }
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
+
   useEffect(() => {
     if (prevMobileMenuOpen.current && !mobileMenuOpen) {
       menuButtonRef.current?.focus()
