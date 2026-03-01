@@ -11,7 +11,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "lint:ci": "npm run lint"
+    "lint:ci": "npm run lint",
+    "audit:prod": "npm audit --omit=dev"
   },
   "dependencies": {
     "focus-trap-react": "^12.0.0",
