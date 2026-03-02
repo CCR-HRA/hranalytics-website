@@ -1,6 +1,9 @@
 import { useState, useRef } from 'react'
 import { m, AnimatePresence, useInView } from 'framer-motion'
 import { successCases as content } from '../data/content'
+import CasoSPPPanel from './CasoSPPPanel'
+import CasoAlineamientoPanel from './CasoAlineamientoPanel'
+import CasoCapacitacionPanel from './CasoCapacitacionPanel'
 
 function IllustrationCapacitacion() {
   return (
@@ -41,6 +44,73 @@ function IllustrationCapacitacion() {
       <circle cx="450" cy="20" r="40" fill="#216a69" opacity="0.06" />
       <circle cx="460" cy="300" r="30" fill="#216a69" opacity="0.05" />
     </svg>
+  )
+}
+
+function DetailCasePanel({ expanded }) {
+  const { detail } = expanded
+  const [showDetail, setShowDetail] = useState(false)
+
+  return (
+    <div className="max-w-2xl mx-auto p-6 md:p-8 rounded-2xl bg-white border border-gray-100/80 shadow-card">
+      <span className="text-[10px] font-semibold text-primary uppercase tracking-widest">
+        {expanded.industryLabel} · {expanded.service}
+      </span>
+      <h3 className="content-h3 text-xl mt-2 mb-4">{expanded.title}</h3>
+      <div className="space-y-3 text-gray-600 text-sm leading-relaxed">
+        <p><strong className="text-gray-800">Contexto:</strong> {expanded.context}</p>
+        <p><strong className="text-gray-800">Solución:</strong> {expanded.solution}</p>
+      </div>
+      <div className="flex flex-wrap gap-6 mt-6 pt-6 border-t border-gray-100">
+        {expanded.metrics.map((m) => (
+          <div key={m.id}>
+            <span className="text-2xl font-bold text-primary">{m.value}</span>
+            <span className="text-gray-600 text-sm ml-1">{m.label}</span>
+          </div>
+        ))}
+      </div>
+      {detail && (
+        <div className="mt-6 pt-6 border-t border-gray-100">
+          <button
+            type="button"
+            onClick={() => setShowDetail(!showDetail)}
+            className="flex items-center gap-1.5 text-primary text-sm font-semibold hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded"
+          >
+            {showDetail ? 'Cerrar detalle' : 'Ver detalle completo'}
+            <svg className={`w-4 h-4 transition-transform ${showDetail ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <AnimatePresence>
+            {showDetail && (
+              <m.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                className="overflow-hidden"
+              >
+                <div className="mt-4 space-y-4 text-gray-600 text-sm leading-relaxed">
+                  <p><strong className="text-gray-800">El desafío:</strong> {detail.challenge}</p>
+                  <p><strong className="text-gray-800">Enfoque:</strong> {detail.approach}</p>
+                  {detail.results?.length > 0 && (
+                    <div>
+                      <p className="font-semibold text-gray-800 mb-2">Resultados:</p>
+                      <ul className="list-disc pl-5 space-y-1.5">
+                        {detail.results.map((r, i) => (
+                          <li key={i}>{r}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  <p><strong className="text-gray-800">Impacto:</strong> {detail.impact}</p>
+                </div>
+              </m.div>
+            )}
+          </AnimatePresence>
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -193,8 +263,16 @@ export default function SuccessCasesSection() {
               transition={{ duration: 0.2 }}
               className="mt-8"
             >
-              {expanded.enhancedDetail ? (
+              {expanded.enhancedDetail?.type === 'spp' ? (
+                <CasoSPPPanel expanded={expanded} />
+              ) : expanded.enhancedDetail?.type === 'alineamiento' ? (
+                <CasoAlineamientoPanel expanded={expanded} />
+              ) : expanded.enhancedDetail?.type === 'capacitacion' ? (
+                <CasoCapacitacionPanel expanded={expanded} />
+              ) : expanded.enhancedDetail ? (
                 <EnhancedCasePanel expanded={expanded} />
+              ) : expanded.detail ? (
+                <DetailCasePanel expanded={expanded} />
               ) : (
                 <div className="max-w-2xl mx-auto p-6 md:p-8 rounded-2xl bg-white border border-gray-100/80 shadow-card">
                   <span className="text-[10px] font-semibold text-primary uppercase tracking-widest">

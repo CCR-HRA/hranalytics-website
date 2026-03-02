@@ -364,7 +364,17 @@ export default function ContactForm() {
               </div>
 
               {status === 'success' && (
-                <p className="text-green-700 text-sm font-medium" role="status">Mensaje enviado. Te contactaremos pronto.</p>
+                <div className="p-5 rounded-xl bg-green-50 border border-green-200/80" role="status">
+                  <div className="flex items-start gap-3">
+                    <svg className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div>
+                      <p className="font-semibold text-green-800">Gracias por tu mensaje</p>
+                      <p className="text-green-700 text-sm mt-1">Te contactaremos en 24 a 48 horas hábiles.</p>
+                    </div>
+                  </div>
+                </div>
               )}
               {status === 'error' && (
                 <p className="text-red-600 text-sm font-medium" role="alert">{errorMessage || ERROR_MESSAGES.generic}</p>

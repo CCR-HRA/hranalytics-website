@@ -1,6 +1,9 @@
-import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { valueProposition as content } from '../data/content'
 import TrustBarSection from '../components/TrustBarSection'
+import { CALENDAR_BOOKING_URL } from '../config'
+import { analytics } from '../utils/analytics'
 
 const icons = [
   <svg key="1" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>,
@@ -10,6 +13,11 @@ const icons = [
 ]
 
 export default function PropuestaValorPage() {
+  const navigate = useNavigate()
+  useEffect(() => {
+    document.title = 'Propuesta de valor | HR Analytics'
+    return () => { document.title = 'HR Analytics | Consultoría en People Analytics' }
+  }, [])
   return (
     <div className="flex flex-col pt-header pb-page-bottom">
       <div className="container-premium relative z-10">
@@ -52,6 +60,38 @@ export default function PropuestaValorPage() {
                   <p className="text-sm text-gray-700 leading-relaxed">{item.description}</p>
               </article>
             ))}
+          </div>
+        </div>
+
+        {/* CTA al final */}
+        <div className="mt-16 text-center p-8 md:p-10 rounded-2xl bg-primary/5 border border-primary/10">
+          <p className="text-gray-700 font-medium mb-4">¿Listo para conversar sobre tu próximo proyecto?</p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+            <a
+              href="#contacto"
+              onClick={(e) => {
+                e.preventDefault()
+                analytics.ctaClick('Solicitar conversación', 'propuesta_valor_cta')
+                navigate({ pathname: '/', hash: 'contacto' })
+              }}
+              className="inline-flex items-center justify-center px-8 py-3.5 bg-primary hover:bg-primary-dark text-white font-semibold text-sm rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            >
+              Solicitar conversación
+            </a>
+            {CALENDAR_BOOKING_URL && (
+              <a
+                href={CALENDAR_BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => analytics.ctaClick('Agendar reunión', 'propuesta_valor_cta')}
+                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 border-2 border-primary/30 text-primary font-semibold text-sm rounded-lg hover:bg-primary/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              >
+                Agendar reunión
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </a>
+            )}
           </div>
         </div>
       </div>

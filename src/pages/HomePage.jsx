@@ -37,12 +37,10 @@ export default function HomePage() {
       {/* 4. PRUEBA: Impacto y Testimonios */}
       {/* Importante: el ID queda siempre (para que el menú pueda scrollear) */}
       <div id="recomendaciones">
-        <LazyMount minHeight={600}>
-          <Suspense fallback={null}>
-            <SuccessCasesSection />
-            <RecommendationsSection />
-          </Suspense>
-        </LazyMount>
+        <Suspense fallback={<div className="min-h-[400px] flex items-center justify-center text-gray-400 text-sm">Cargando...</div>}>
+          <SuccessCasesSection />
+          <RecommendationsSection />
+        </Suspense>
       </div>
 
       {/* 5. CÓMO LO RESOLVEMOS */}

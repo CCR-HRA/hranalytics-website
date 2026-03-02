@@ -1,8 +1,8 @@
 import { m } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import TiltCard from './TiltCard'
 import SectionReveal, { RevealItem } from './SectionReveal'
 import { industries as content } from '../data/content'
-import { scrollToSection } from '../utils/scroll'
 
 const industryIcons = {
   mineria: (
@@ -71,19 +71,12 @@ export default function IndustriesSection() {
           transition={{ delay: 0.4 }}
           className="mt-10 text-center"
         >
-          <a
-            href="#recomendaciones"
-            onClick={(e) => {
-              e.preventDefault()
-              scrollToSection('#recomendaciones')
-            }}
-            className="capability-link"
-          >
+          <Link to="/casos" className="capability-link">
             Ver casos de impacto
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </a>
+          </Link>
         </m.div>
       </div>
     </section>

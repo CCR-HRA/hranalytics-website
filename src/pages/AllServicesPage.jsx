@@ -28,7 +28,7 @@ import { analytics } from '../utils/analytics'
 
 export default function AllServicesPage() {
   useEffect(() => {
-    document.title = 'Servicios | HR Analytics | Consultoría en People Analytics'
+    document.title = 'Servicios | HR Analytics'
     return () => { document.title = 'HR Analytics | Consultoría en People Analytics' }
   }, [])
 

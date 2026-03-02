@@ -10,7 +10,7 @@ export const navLinks = [
   { href: '#que-hacemos', label: 'Enfoque' },
   { href: '#industrias', label: 'Industrias' },
   { href: '#quienes-somos', label: 'Liderazgo' },
-  { href: '#recomendaciones', label: 'Casos y Testimonios' },
+  { href: '/casos', label: 'Casos y Testimonios' },
   { href: '#contacto', label: 'Contacto' },
 ]
 

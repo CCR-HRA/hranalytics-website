@@ -1,5 +1,8 @@
-import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { enfoque as content } from '../data/content'
+import { CALENDAR_BOOKING_URL } from '../config'
+import { analytics } from '../utils/analytics'
 
 const icons = [
   <svg key="1" className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" /></svg>,
@@ -8,6 +11,11 @@ const icons = [
 ]
 
 export default function NuestroEnfoquePage() {
+  const navigate = useNavigate()
+  useEffect(() => {
+    document.title = 'Nuestro enfoque | HR Analytics'
+    return () => { document.title = 'HR Analytics | Consultoría en People Analytics' }
+  }, [])
   return (
     <div className="flex flex-col pt-header pb-page-bottom">
         <div className="container-premium relative z-10">
@@ -56,6 +64,38 @@ export default function NuestroEnfoquePage() {
                 &ldquo;{content.quote}&rdquo;
               </p>
             </blockquote>
+
+            {/* CTA al final */}
+            <div className="mt-16 text-center p-8 md:p-10 rounded-2xl bg-primary/5 border border-primary/10">
+              <p className="text-gray-700 font-medium mb-4">¿Listo para conversar sobre tu próximo proyecto?</p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                <a
+                  href="#contacto"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    analytics.ctaClick('Solicitar conversación', 'nuestro_enfoque_cta')
+                    navigate({ pathname: '/', hash: 'contacto' })
+                  }}
+                  className="inline-flex items-center justify-center px-8 py-3.5 bg-primary hover:bg-primary-dark text-white font-semibold text-sm rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                >
+                  Solicitar conversación
+                </a>
+                {CALENDAR_BOOKING_URL && (
+                  <a
+                    href={CALENDAR_BOOKING_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => analytics.ctaClick('Agendar reunión', 'nuestro_enfoque_cta')}
+                    className="inline-flex items-center justify-center gap-2 px-8 py-3.5 border-2 border-primary/30 text-primary font-semibold text-sm rounded-lg hover:bg-primary/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  >
+                    Agendar reunión
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </a>
+                )}
+              </div>
+            </div>
           </div>
         </div>
     </div>

@@ -109,6 +109,14 @@ export default function Hero() {
               </a>
             </MagneticButton>
           </div>
+          <m.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5, duration: 0.5 }}
+            className="mt-4 text-[11px] text-white/60 tracking-wider text-center"
+          >
+            18+ años · MIT · 5 industrias
+          </m.p>
         </m.div>
 
         <m.a
