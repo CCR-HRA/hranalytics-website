@@ -38,8 +38,8 @@ export function getMegaMenuData() {
       items: services.map((s) => ({
         id: s.id,
         label: s.title,
-        href: `/servicios/${s.slug}`,
-        path: `/servicios/${s.slug}`,
+        href: `/servicios#${s.slug}`,
+        path: `/servicios#${s.slug}`,
       })),
     }
   })

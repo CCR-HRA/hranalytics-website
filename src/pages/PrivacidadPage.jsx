@@ -10,7 +10,8 @@ export default function PrivacidadPage() {
 
   return (
     <div className="flex flex-col pt-header pb-page-bottom">
-        <div className="container-premium max-w-prose">
+        <div className="container-premium">
+          <div className="max-w-prose mx-auto">
           <Link to="/" className="inline-flex items-center gap-2 text-primary font-medium text-sm hover:text-primary-dark mb-10">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
             Volver al inicio
@@ -26,6 +27,7 @@ export default function PrivacidadPage() {
             <p>Implementamos medidas técnicas y organizativas razonables para proteger tus datos contra acceso no autorizado, pérdida, uso indebido o alteración.</p>
             <h2 className="font-bold text-gray-900 text-base mt-6">Contacto</h2>
             <p>Para ejercer tus derechos o realizar consultas sobre privacidad, puedes escribir a: <a href={`mailto:${CONTACT_EMAIL}`} className="text-primary hover:text-primary-dark underline">{CONTACT_EMAIL}</a></p>
+          </div>
           </div>
         </div>
     </div>

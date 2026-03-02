@@ -7,6 +7,7 @@ import Footer from './Footer'
 import ScrollProgress from './ScrollProgress'
 import WhatsAppButton from './WhatsAppButton'
 import BackToTop from './BackToTop'
+import StickyMobileCTA from './StickyMobileCTA'
 import ServicesNavButton from './ServicesNavButton'
 import PageView from './PageView'
 
@@ -28,6 +29,7 @@ export default function AppLayout() {
 
       <Footer />
       <WhatsAppButton />
+      <StickyMobileCTA />
       {isServicesPage ? <ServicesNavButton /> : <BackToTop />}
     </div>
   )

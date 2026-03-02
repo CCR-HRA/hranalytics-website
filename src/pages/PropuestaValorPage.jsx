@@ -12,9 +12,8 @@ const icons = [
 export default function PropuestaValorPage() {
   return (
     <div className="flex flex-col pt-header pb-page-bottom">
-      {/* QA FIX: Se envuelve el contenido en container-premium para consistencia visual */}
       <div className="container-premium relative z-10">
-        <div className="max-w-5xl mx-auto">
+        <div className="w-full">
           <Link
             to="/"
             className="inline-flex items-center gap-2 text-primary font-medium text-sm hover:text-primary-dark mb-10 transition-colors"
@@ -39,7 +38,7 @@ export default function PropuestaValorPage() {
         {/* TrustBar fuera del contenedor principal para que ocupe el ancho */}
         <TrustBarSection />
 
-        <div className="max-w-5xl mx-auto mt-14">
+        <div className="w-full mt-14">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
               {content.items.map((item, i) => (
                 <article

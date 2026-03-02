@@ -217,6 +217,34 @@ export const successCases = {
         { id: 'm3-areas', value: '4', label: 'Áreas analizadas' },
       ],
     },
+    {
+      id: 4,
+      title: 'Medición integral del impacto de la capacitación',
+      industry: 'People Analytics',
+      industryLabel: 'Empresa con +2.500 colaboradores · Chile',
+      service: 'Analítica y Medición de Personas',
+      serviceId: 5,
+      context: 'La organización contaba con más de 15 informes de capacitación independientes sin visión consolidada. No podían responder con evidencia si la inversión en formación estaba generando aprendizaje real ni cambio de conducta en el trabajo.',
+      solution: 'Consolidación y análisis de más de 45.000 registros de evaluación en tres niveles (satisfacción, aprendizaje y transferencia) con estadística descriptiva, inferencial y análisis correlacional para validar cada hallazgo.',
+      metrics: [
+        { id: 'm4-aprobacion', value: '94%', label: 'Tasa de aprobación' },
+        { id: 'm4-registros', value: '45K+', label: 'Registros analizados' },
+        { id: 'm4-niveles', value: '3', label: 'Niveles de medición' },
+      ],
+      enhancedDetail: {
+        progressBars: [
+          { label: 'Tasa de aprobación', value: 94, color: 'primary' },
+          { label: 'Cursos sobre umbral de satisfacción (≥4.0/5)', value: 100, color: 'primary' },
+          { label: 'Aprobación en programa con brecha crítica', value: 62, color: 'amber' },
+        ],
+        impactBullets: [
+          'El cliente pasó de datos fragmentados a una narrativa ejecutiva con trazabilidad completa.',
+          'Identificamos 1 curso crítico con 19% de reprobación, triplicando el promedio del programa.',
+          'Cuantificamos una brecha de 0.4 puntos entre percepción de instructores y participantes sobre aplicación real.',
+          'Las decisiones de inversión en formación quedaron respaldadas con evidencia estadística y plan de acción priorizado.',
+        ],
+      },
+    },
   ],
 }
 

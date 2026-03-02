@@ -10,9 +10,8 @@ const icons = [
 export default function NuestroEnfoquePage() {
   return (
     <div className="flex flex-col pt-header pb-page-bottom">
-        {/* QA FIX: Se envuelve el contenido en container-premium y se usa max-w-5xl para consistencia visual */}
         <div className="container-premium relative z-10">
-          <div className="max-w-5xl mx-auto">
+          <div className="w-full">
             <Link
               to="/"
               className="inline-flex items-center gap-2 text-primary font-medium text-sm hover:text-primary-dark mb-10 transition-colors"

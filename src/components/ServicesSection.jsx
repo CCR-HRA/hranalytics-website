@@ -94,7 +94,7 @@ export default function ServicesSection() {
                     return (
                       <Link
                         key={service.id}
-                        to={`/servicios/${service.slug}`}
+                        to={`/servicios#${service.slug}`}
                         onClick={() => handleServiceClick(service)}
                         className="group text-left flex flex-col overflow-hidden rounded-sm border border-gray-200/80 transition-all duration-300 bg-white hover:bg-gray-50/50 hover:border-primary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                       >
