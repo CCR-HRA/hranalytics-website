@@ -30,7 +30,7 @@ export default function Footer() {
           {/* Col 1: Logo + tagline + región + social */}
           <div className="col-span-2 md:col-span-1 lg:col-span-2">
             <Link to="/" className="inline-block mb-5">
-              <img src="/logo-white.png" alt="HR Analytics" className="h-14 hover:opacity-90 transition-opacity" loading="lazy" />
+              <img src="/logo-white.png" alt="HR Analytics" className="h-16 md:h-20 hover:opacity-90 transition-opacity" loading="lazy" />
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed max-w-xs mb-3">
               {content.tagline}

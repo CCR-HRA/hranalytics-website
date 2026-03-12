@@ -33,6 +33,7 @@ cp .env.example .env   # Luego edita .env con tus valores
 | `VITE_GTM_ID` | Google Tag Manager | Opcional |
 | `VITE_GA_ID` | Google Analytics 4 | Opcional (si `VITE_GTM_ID` está definido, solo se usa GTM; GA se ignora) |
 | `VITE_CALENDAR_BOOKING_URL` | Enlace a calendario de citas | Opcional |
+| `VITE_GOOGLE_CLIENT_ID` | Login con Google en el chat (OAuth) | Opcional |
 
 ## 🚀 Desplegar en Vercel
 
@@ -63,7 +64,7 @@ src/
 │   ├── CTASection, ContactForm, FAQSection
 │   └── header/ (MegaMenuPanel, constants)
 ├── pages/ (HomePage, PropuestaValorPage, NuestroEnfoquePage, etc.)
-├── data/content.js, services.json
+├── data/content.js, extendedServices.js
 └── utils/ (scroll, analytics)
 ```
 

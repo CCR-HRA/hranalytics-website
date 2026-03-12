@@ -1,8 +1,12 @@
+/**
+ * Página Nuestro enfoque. Contenido y mensajes de interfaz en español.
+ */
 import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { enfoque as content } from '../data/content'
 import { CALENDAR_BOOKING_URL } from '../config'
 import { analytics } from '../utils/analytics'
+import { scrollToSection } from '../utils/scroll'
 
 const icons = [
   <svg key="1" className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" /></svg>,
@@ -70,11 +74,11 @@ export default function NuestroEnfoquePage() {
               <p className="text-gray-700 font-medium mb-4">¿Listo para conversar sobre tu próximo proyecto?</p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
                 <a
-                  href="#contacto"
+                  href="/#contacto"
                   onClick={(e) => {
                     e.preventDefault()
                     analytics.ctaClick('Solicitar conversación', 'nuestro_enfoque_cta')
-                    navigate({ pathname: '/', hash: 'contacto' })
+                    if (!scrollToSection('#contacto')) navigate({ pathname: '/', hash: 'contacto' })
                   }}
                   className="inline-flex items-center justify-center px-8 py-3.5 bg-primary hover:bg-primary-dark text-white font-semibold text-sm rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 >

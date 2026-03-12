@@ -1,6 +1,8 @@
 # Despliegue — HR Analytics
 
-Guía para desplegar el sitio en Vercel (u otros hosts).
+Guía para desplegar el sitio en Vercel, Netlify o **hosting propio** (cPanel, FTP).
+
+**¿Tienes hosting comprado?** → Ver [HOSTING_PROPIO.md](HOSTING_PROPIO.md)
 
 ## Vercel (recomendado)
 

@@ -62,7 +62,7 @@ export default function RecommendationsSection() {
             Recomendaciones
           </p>
           <h2 className="section-title text-gray-900">
-            Lo que dicen quienes han trabajado conmigo en People Analytics
+            Testimonios de clientes sobre proyectos de People Analytics
           </h2>
           <div className="section-divider mt-6" />
           <p className="mt-6 text-gray-600 text-sm md:text-base max-w-wide mx-auto leading-relaxed">
@@ -222,7 +222,7 @@ export default function RecommendationsSection() {
         {/* Contador sutil */}
         <p className="text-center text-gray-400 text-xs tracking-wide mt-4 mb-8 font-medium">
           {visibleRecommendations.length > 0
-            ? `${currentIndex + 1} de ${visibleRecommendations.length} recomendación${visibleRecommendations.length !== 1 ? 'es' : ''}`
+            ? `${currentIndex + 1} de ${visibleRecommendations.length} ${visibleRecommendations.length !== 1 ? 'recomendaciones' : 'recomendación'}`
             : ''}
           {activeFilter !== 'Todos' && visibleRecommendations.length > 0 ? ` · Filtro: ${activeFilter}` : ''}
         </p>

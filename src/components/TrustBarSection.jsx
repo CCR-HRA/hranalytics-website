@@ -18,7 +18,7 @@ export default function TrustBarSection() {
           transition: { staggerChildren: 0.12, delayChildren: 0.1 },
         },
       }}
-      className="relative z-10 -mt-px py-6 md:py-8 bg-white border-y border-gray-100"
+      className="relative z-10 -mt-px py-5 md:py-6 bg-white border-y border-gray-100"
       aria-label="Credenciales"
     >
       <div className="container-premium">
@@ -30,8 +30,8 @@ export default function TrustBarSection() {
           {content.heading}
         </m.p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10 max-w-4xl mx-auto">
-          {content.items.map((item, i) => (
-            <m.div key={i} variants={itemVariants} transition={{ duration: 0.5 }} className="text-center">
+          {content.items.map((item) => (
+            <m.div key={item.id} variants={itemVariants} transition={{ duration: 0.5 }} className="text-center">
               <AnimatedCounter value={item.value} label={item.label} duration={1.2} />
             </m.div>
           ))}

@@ -21,7 +21,7 @@ export default function MegaMenuPanel({
   // Padding-top alinea el panel con el borde inferior del header (usa --header-height del Header)
   return (
     <div
-      className="fixed inset-x-0 top-0 left-0 right-0 z-[100] pb-8 isolate"
+      className="fixed inset-x-0 top-0 left-0 right-0 z-[102] pb-8 isolate"
       style={{
         paddingTop: 'calc(var(--header-height, 5.5rem) + env(safe-area-inset-top))',
         transform: 'translateZ(0)',

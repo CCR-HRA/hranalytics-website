@@ -1,4 +1,8 @@
+/**
+ * Página de inicio. Contenido y mensajes de interfaz en español.
+ */
 import { lazy, Suspense } from 'react'
+import { useLocation } from 'react-router-dom'
 import LazyMount from '../components/LazyMount'
 
 import Hero from '../components/Hero'
@@ -11,14 +15,17 @@ import ValuePropCompact from '../components/ValuePropCompact'
 import AboutSection from '../components/AboutSection'
 import InsightsSection from '../components/InsightsSection'
 import ContactForm from '../components/ContactForm'
+import RecommendationsSection from '../components/RecommendationsSection'
+import SuccessCasesSection from '../components/SuccessCasesSection'
 
 // Lazy (below-the-fold)
-const SuccessCasesSection = lazy(() => import('../components/SuccessCasesSection'))
-const RecommendationsSection = lazy(() => import('../components/RecommendationsSection'))
 const FAQSection = lazy(() => import('../components/FAQSection'))
 const CTASection = lazy(() => import('../components/CTASection'))
 
 export default function HomePage() {
+  const { hash } = useLocation()
+  const forceMountAboveContact = hash?.replace(/^#/, '') === 'contacto'
+
   return (
     <div className="flex flex-col pb-page-bottom">
       {/* 1. LA PROMESA */}
@@ -34,13 +41,10 @@ export default function HomePage() {
       {/* 4. PARA QUIÉN */}
       <IndustriesSection />
 
-      {/* 4. PRUEBA: Impacto y Testimonios */}
-      {/* Importante: el ID queda siempre (para que el menú pueda scrollear) */}
+      {/* 4. PRUEBA: Testimonios primero, luego Casos de impacto (eager para evitar flash al hacer clic) */}
       <div id="recomendaciones">
-        <Suspense fallback={<div className="min-h-[400px] flex items-center justify-center text-gray-400 text-sm">Cargando...</div>}>
-          <SuccessCasesSection />
-          <RecommendationsSection />
-        </Suspense>
+        <RecommendationsSection />
+        <SuccessCasesSection />
       </div>
 
       {/* 5. CÓMO LO RESOLVEMOS */}
@@ -52,7 +56,7 @@ export default function HomePage() {
       <InsightsSection />
 
       {/* 7. CIERRE Y CONVERSIÓN */}
-      <LazyMount minHeight={520}>
+      <LazyMount minHeight={520} forceMount={forceMountAboveContact}>
         <Suspense fallback={null}>
           <FAQSection />
           <CTASection />

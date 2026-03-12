@@ -8,8 +8,8 @@ export default {
     extend: {
       /* Espaciado premium: más aire, ritmo claro */
       spacing: {
-        'section': '2.5rem',
-        'section-lg': '3.5rem',
+        'section': '2rem',
+        'section-lg': '2.75rem',
         '18': '4.5rem',
         '22': '5.5rem',
         'header': '5.5rem', /* Espacio bajo header fijo */

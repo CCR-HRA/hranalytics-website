@@ -19,6 +19,7 @@ export default function Header() {
   const [mobileMegaOpen, setMobileMegaOpen] = useState(null)
 
   const megaCloseTimer = useRef(null)
+  const megaOpenTimeRef = useRef(0)
   const chevronHandledRef = useRef(false)
   const chevronTimerRef = useRef(null)
   const isMountedRef = useRef(true)
@@ -46,9 +47,9 @@ export default function Header() {
     }
   }
 
-  // Orden igual al DOM en HomePage: inicio → servicios → industrias → recomendaciones → que-hacemos → quienes-somos → contacto
+  // Orden igual al DOM en HomePage: inicio → servicios → reconocimiento → industrias → recomendaciones → que-hacemos → quienes-somos → contacto
   const sectionSelectors = useMemo(
-    () => ['#inicio', '#servicios', '#industrias', '#recomendaciones', '#que-hacemos', '#quienes-somos', '#contacto'],
+    () => ['#inicio', '#servicios', '#reconocimiento', '#industrias', '#recomendaciones', '#que-hacemos', '#quienes-somos', '#contacto'],
     []
   )
   const scrollSpyActive = useScrollSpy(sectionSelectors, 120, { enabled: isHome })
@@ -156,6 +157,12 @@ export default function Header() {
     setMegaOpen(null)
   }
 
+  // Evita cierre inmediato por FocusTrap en Strict Mode (onDeactivate al remontar)
+  const handleMegaPanelClose = () => {
+    if (Date.now() - megaOpenTimeRef.current < 250) return
+    closeMenus()
+  }
+
   const toggleMobileMega = (key) => {
     setMobileMegaOpen((prev) => (prev === key ? null : key))
   }
@@ -165,9 +172,9 @@ export default function Header() {
     closeMenus()
     if (!href) return
     if (href.startsWith('#')) {
-      navigate({ pathname: '/', hash: href.slice(1) })
-      // Si ya estamos en home, scroll inmediato (evita el delay de 850ms del ScrollManager)
-      if (isHome) requestAnimationFrame(() => scrollToSection(href))
+      // Solo marcar scrollHandled cuando estamos en home (evita doble scroll y flash)
+      navigate({ pathname: '/', hash: href.slice(1) }, { state: isHome ? { scrollHandled: true } : undefined })
+      if (isHome) requestAnimationFrame(() => scrollToSection(href, { smooth: false }))
     } else if (href.startsWith('/')) {
       navigate(href)
     }
@@ -220,11 +227,11 @@ export default function Header() {
         </AnimatePresence>
 
         <div className="relative z-[49] flex items-center justify-between">
-          <Link to="/" onClick={closeMenus} className="flex items-center">
+          <Link to="/" onClick={closeMenus} className="flex items-center shrink-0">
             <img
               src={useLightText ? '/logo-white.png' : '/logo-teal.png'}
               alt="HR Analytics"
-              className="h-12 md:h-14 object-contain transition-transform hover:scale-105 duration-200"
+              className="h-14 md:h-16 lg:h-[4.25rem] object-contain transition-transform hover:scale-105 duration-200"
               loading="eager"
               decoding="async"
             />
@@ -273,7 +280,11 @@ export default function Header() {
                           e.preventDefault()
                           if (chevronTimerRef.current) clearTimeout(chevronTimerRef.current)
                           chevronHandledRef.current = true
-                          setMegaOpen((prev) => (prev === triggerMega ? null : triggerMega))
+                          setMegaOpen((prev) => {
+                            if (prev === triggerMega) return null
+                            megaOpenTimeRef.current = Date.now()
+                            return triggerMega
+                          })
                           chevronTimerRef.current = setTimeout(() => {
                             chevronHandledRef.current = false
                             chevronTimerRef.current = null
@@ -283,7 +294,11 @@ export default function Header() {
                           e.preventDefault()
                           e.stopPropagation()
                           if (chevronHandledRef.current) return
-                          setMegaOpen((prev) => (prev === triggerMega ? null : triggerMega))
+                          setMegaOpen((prev) => {
+                            if (prev === triggerMega) return null
+                            megaOpenTimeRef.current = Date.now()
+                            return triggerMega
+                          })
                         }}
                         aria-expanded={megaOpen === triggerMega}
                         aria-haspopup="true"
@@ -307,7 +322,7 @@ export default function Header() {
                               const href = e.currentTarget.getAttribute('href')
                               handleNavClick(href)
                             }}
-                            onClose={closeMenus}
+                            onClose={handleMegaPanelClose}
                             onMouseEnter={() => { cancelMegaClose(); setMegaOpen(triggerMega) }}
                             onMouseLeave={scheduleMegaClose}
                           />,
@@ -319,7 +334,14 @@ export default function Header() {
 
                 return (
                   <li key={link.href} className="relative">
-                    <Link to={to} onClick={() => handleNavClick(link.href)} className={linkClasses}>
+                    <Link
+                      to={to}
+                      onClick={(e) => {
+                        if (link.href?.startsWith('#')) e.preventDefault()
+                        handleNavClick(link.href)
+                      }}
+                      className={linkClasses}
+                    >
                       {link.label}
                       {isActive && <m.span layoutId={`nav-indicator-${(link.href || '').replace(/^#/, '')}`} className="absolute -bottom-1 left-2 right-2 h-0.5 rounded-full bg-primary-light" transition={{ type: 'spring', stiffness: 380, damping: 30 }} />}
                     </Link>

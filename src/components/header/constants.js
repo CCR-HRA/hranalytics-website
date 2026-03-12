@@ -8,9 +8,11 @@ export const navLinks = [
   { href: '#inicio', label: 'Inicio', isHomeLink: true },
   { href: '#servicios', label: 'Servicios', mega: 'services' },
   { href: '#que-hacemos', label: 'Enfoque' },
+  { href: '#reconocimiento', label: 'Clientes' },
   { href: '#industrias', label: 'Industrias' },
   { href: '#quienes-somos', label: 'Liderazgo' },
-  { href: '/casos', label: 'Casos y Testimonios' },
+  { href: '/casos', label: 'Casos' },
+  { href: '#recomendaciones', label: 'Testimonios' },
   { href: '#contacto', label: 'Contacto' },
 ]
 

@@ -2,6 +2,9 @@
  * Servicios extendidos con metodología, por qué, y referencias a casos/testimonios.
  * Catálogo Completo: 14 Servicios en 4 Pilares Estratégicos.
  */
+// Cache-busting: evita que el navegador sirva imágenes cacheadas tras actualizar el sitio
+const img = (path) => path + (typeof __IMG_VERSION__ !== 'undefined' ? '?v=' + __IMG_VERSION__ : '')
+
 export const extendedServices = [
   // ==========================================
   // PILAR I: ESTRATEGIA DE PERSONAS
@@ -13,7 +16,7 @@ export const extendedServices = [
     slug: 'planificacion-estrategica-personas',
     title: 'Planificación Estratégica de Personas',
     subtitle: 'Strategic People Planning (SPP)',
-    image: '/images/services/s1.jpg',
+    image: img('/images/services/s1.jpg'),
     why: [
       'La mayoría de las organizaciones planifican sus finanzas y su producción con años de anticipación, pero planifican a su gente con semanas de retraso. El resultado es predecible, vacantes críticas sin cubrir, estructuras que crecen sin dirección y decisiones de talento que se toman apagando incendios.',
       'La Planificación Estratégica de Personas conecta directamente la estrategia del negocio con la gestión de personas. A través de la Metodología 4A (Adquirir, Ampliar, Adaptar y Automatizar), modelamos la oferta y demanda futura de talento, proyectamos brechas y entregamos un People Plan accionable basado en evidencia estadística, no en intuición.'
@@ -34,7 +37,7 @@ export const extendedServices = [
     slug: 'alineamiento-estrategico-equipos',
     title: 'Alineamiento Estratégico para Equipos',
     subtitle: 'Strategy Cascade & KPIs',
-    image: '/images/services/s2.jpg',
+    image: img('/images/services/s2.jpg'),
     why: [
       'Una estrategia brillante en papel puede fracasar completamente en la ejecución si los equipos no la entienden, no saben cómo contribuir a ella, o trabajan con KPIs desconectados de las prioridades reales del negocio.',
       'El Alineamiento Estratégico traduce el Plan Maestro Estratégico en lenguaje operativo, define qué deben hacer diferente cada área, cada equipo y cada jefatura para contribuir directamente a los objetivos del negocio, implementando indicadores de control que miden el avance en tiempo real.'
@@ -55,7 +58,7 @@ export const extendedServices = [
     slug: 'planificacion-sucesion',
     title: 'Planificación de Sucesión y Fortaleza',
     subtitle: 'Succession Plan Strength Assessment',
-    image: '/images/services/s3.jpg',
+    image: img('/images/services/s3.jpg'),
     why: [
       'La mayoría de los planes de sucesión se ven bien en papel, pero ocultan riesgos críticos, un mismo candidato aparece como sucesor de tres posiciones, o las posiciones más críticas tienen cobertura de una sola persona.',
       'Nuestro análisis cuantitativo destapa estos riesgos. Evaluamos cuán sólido es realmente el plan de sucesión, qué posiciones tienen riesgo de quedar vacantes, y cómo fortalecer el pipeline de talento de forma proactiva y con equilibrio de género.'
@@ -80,7 +83,7 @@ export const extendedServices = [
     slug: 'paneles-kpi-analitica-rrhh',
     title: 'Paneles de Control KPI a la Medida',
     subtitle: 'People Analytics Dashboards',
-    image: '/images/services/s4.jpg',
+    image: img('/images/services/s4.jpg'),
     why: [
       'Los datos de RR.HH. existen en casi todas las organizaciones, el problema es que están dispersos, sin limpiar, y nadie los está mirando de forma sistemática para tomar decisiones.',
       'Transformamos datos estáticos en visibilidad dinámica. Desarrollamos paneles ejecutivos que consolidan la información y la conectan directamente con los indicadores del negocio, entregando a sus líderes una visión clara y actualizada para decisiones oportunas.'
@@ -101,7 +104,7 @@ export const extendedServices = [
     slug: 'analisis-predictivo-riesgo-fuga',
     title: 'Análisis Predictivo de Riesgo de Fuga',
     subtitle: 'Flight Risk & Retention Analysis',
-    image: '/images/services/s5.jpg',
+    image: img('/images/services/s5.jpg'),
     why: [
       'El costo de perder talento clave rara vez aparece en los reportes financieros, pero impacta directamente en la curva de aprendizaje y productividad. Lo más costoso es que la mayoría de estas salidas se podían anticipar.',
       'Utilizamos Machine Learning para identificar, antes de que ocurra, qué colaboradores tienen mayor probabilidad de salida voluntaria. Transformamos la retención en una gestión proactiva, interviniendo con las personas y roles correctos basados en evidencia predictiva.'
@@ -122,7 +125,7 @@ export const extendedServices = [
     slug: 'equidad-salarial-genero',
     title: 'Análisis de Equidad Salarial de Género',
     subtitle: 'Equal Pay Analysis',
-    image: '/images/services/s6.jpg',
+    image: img('/images/services/s6.jpg'),
     why: [
       'La brecha salarial de género ya no es solo reputacional, es un requisito legal en aumento. Una organización que paga de forma inequitativa pierde talento femenino y envía una señal negativa sobre sus valores.',
       'Nuestro análisis no se limita a comparar promedios. Controlamos estadísticamente los factores legítimos (cargo, grado, desempeño) para determinar si el género influye injustificadamente en la remuneración, separando lo que es brecha estructural de lo que es sesgo.'
@@ -143,7 +146,7 @@ export const extendedServices = [
     slug: 'ausentismo-focos-gestion',
     title: 'Análisis de Ausentismo e Identificación de Focos',
     subtitle: 'Absence & Focus Management',
-    image: '/images/services/s7.jpg',
+    image: img('/images/services/s7.jpg'),
     why: [
       'El ausentismo es uno de los costos más invisibles. Rara vez tiene una línea en el presupuesto, pero impacta la productividad y el clima laboral. Sin datos, la gestión se enfoca donde hay más ruido, no donde hay más impacto.',
       'Combinamos el análisis detallado del ausentismo con la Matriz de Gestión Organizacional para priorizar intervenciones. Ayudamos a su equipo a dejar de apagar incendios y comenzar a enfocar su energía estratégica donde realmente se mueve la aguja.'
@@ -164,7 +167,7 @@ export const extendedServices = [
     slug: 'proyeccion-equilibrio-genero',
     title: 'Proyección de Equilibrio de Género',
     subtitle: 'Gender Balance Evolution',
-    image: '/images/services/s8.jpg',
+    image: img('/images/services/s8.jpg'),
     why: [
       'Fijar metas de equidad de género sin modelar cómo alcanzarlas es solo una declaración de intenciones. ¿Qué palanca tiene mayor impacto, reducir la salida de mujeres o aumentar la contratación?',
       'Nuestra herramienta de simulación proyecta la evolución del equilibrio de género bajo distintas tasas de ingreso, egreso y promoción. Transforma las conversaciones de diversidad en matemáticas accionables, "si hacemos X, en Y años llegaremos a Z".'
@@ -189,7 +192,7 @@ export const extendedServices = [
     slug: 'compensaciones-incentivos-presupuesto',
     title: 'Compensación Total, Incentivos y Presupuesto',
     subtitle: 'Total Rewards & Budgeting',
-    image: '/images/services/s9.jpg',
+    image: img('/images/services/s9.jpg'),
     why: [
       'Decisiones de compensación sin respaldo generan dos riesgos, sobrepagar sin retener al talento correcto, o subpagar y perder a los mejores. Sin un modelo analítico, el presupuesto de personas pierde credibilidad.',
       'Diseñamos modelos de Total Rewards integrando datos de mercado, desempeño y estrategias de negocio. El resultado es una Matriz de Decisión que asigna recursos con equidad, competitividad y alineación total al cumplimiento de las metas organizacionales.'
@@ -210,7 +213,7 @@ export const extendedServices = [
     slug: 'diseno-estructura-organizacional',
     title: 'Diseño de Estructura Organizacional',
     subtitle: 'Organizational Design',
-    image: '/images/services/s10.jpg',
+    image: img('/images/services/s10.jpg'),
     why: [
       'Capas de supervisión innecesarias y equipos fragmentados generan ineficiencia, lentitud de decisión y costos de dotación no justificados. Una estructura desalineada es uno de los mayores costos ocultos.',
       'Analizamos con datos si su estructura es la más eficiente para el volumen de operación. Evaluamos el Span of Control, modelamos alternativas y comparamos costos de mano de obra para que la gerencia decida con evidencia cuantitativa.'
@@ -231,7 +234,7 @@ export const extendedServices = [
     slug: 'modelos-negociacion-sindical',
     title: 'Modelos para Negociación Sindical',
     subtitle: 'Labor Relations Analytics',
-    image: '/images/services/s11.jpg',
+    image: img('/images/services/s11.jpg'),
     why: [
       'Una negociación sindical mal preparada cuesta millones. Llegar a la mesa sin estimaciones matemáticas precisas expone a la empresa a compromisos insostenibles en el tiempo.',
       'Construimos la base analítica que su gerencia necesita. Simulamos el impacto presupuestario plurianual de reajustes, bonos y beneficios, permitiendo anticipar el costo de cierre y definir concesiones de alto valor percibido pero bajo impacto financiero.'
@@ -256,7 +259,7 @@ export const extendedServices = [
     slug: 'automatizacion-procesos-rrhh',
     title: 'Automatización de Procesos con Python',
     subtitle: 'Data Pipelines para RR.HH.',
-    image: '/images/services/s14.jpg',
+    image: img('/images/services/s14.jpg'),
     why: [
       'El verdadero valor de RR.HH. reside en su capacidad estratégica, no en consolidar Excel manualmente. Tareas operativas de cálculo e integración de datos limitan el tiempo disponible para el desarrollo de talento.',
       'Liberamos el potencial de su equipo mediante pipelines automatizados en Python. Extraemos, transformamos y generamos reportes desde múltiples sistemas (ETL) a velocidad de código, reduciendo errores a cero y devolviéndole horas críticas a su organización.'
@@ -277,7 +280,7 @@ export const extendedServices = [
     slug: 'capacitacion-planificacion-estrategica',
     title: 'Capacitación en SPP para HRBPs',
     subtitle: 'SPP Training for HRBPs',
-    image: '/images/services/s12.jpg',
+    image: img('/images/services/s12.jpg'),
     why: [
       'La Planificación Estratégica de Personas solo genera valor cuando el equipo interno puede ejecutarla de forma autónoma. Un proyecto de consultoría sin transferencia de conocimiento debe repetirse cada año.',
       'Formamos a sus Socios de Negocio (HRBPs) con herramientas prácticas para dominar el proceso. Desde la segmentación de datos hasta la interpretación de modelos de demanda, instalamos capacidad técnica real en su primera línea de Recursos Humanos.'
@@ -298,7 +301,7 @@ export const extendedServices = [
     slug: 'compromiso-desempeno-equipos',
     title: 'Compromiso y Desempeño de Equipos',
     subtitle: 'Engagement & Team Performance',
-    image: '/images/services/s13.jpg',
+    image: img('/images/services/s13.jpg'),
     why: [
       'Las encuestas anuales de clima llegan demasiado tarde, cuando se publican, el talento crítico ya ha renunciado. Los equipos de alto desempeño necesitan retroalimentación estructurada continua.',
       'Implementamos Engagement Check-ins y Team Performance Assessments. Capturamos señales de alerta tempranas mediante herramientas digitales ligeras, permitiendo a los líderes actuar sobre datos concretos antes de que los problemas afecten los resultados operativos.'

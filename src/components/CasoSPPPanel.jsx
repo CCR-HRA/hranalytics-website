@@ -1,7 +1,12 @@
+/**
+ * Panel del caso SPP. Contenido y mensajes de interfaz en español.
+ */
 import { useState, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { m } from 'framer-motion'
 import { scrollToSection } from '../utils/scroll'
 import { analytics } from '../utils/analytics'
+import { IconSPP } from './CaseStudyIcons'
 
 const P = '#216a69'
 const NAVY = '#0a1628'
@@ -94,7 +99,7 @@ function RadarChart({ data, started }) {
       {data.map((d, i) => {
         const [x, y] = toXY(angles[i], r + 16)
         return (
-          <text key={i} x={x} y={y} textAnchor="middle" dominantBaseline="middle" fontSize="8.5" fill="#374151" fontWeight="500">
+          <text key={i} x={x} y={y} textAnchor="middle" dominantBaseline="middle" fontSize="8.5" fill="rgba(255,255,255,0.9)" fontWeight="500">
             {d.label}
           </text>
         )
@@ -106,14 +111,14 @@ function RadarChart({ data, started }) {
 
 function RiskMatrix({ clusters, started }) {
   return (
-    <div className="relative w-full pb-[100%] border border-gray-200 rounded-xl overflow-hidden bg-gray-50">
+    <div className="relative w-full pb-[100%] border border-white/30 rounded-xl overflow-hidden bg-white/5">
       <div className="absolute inset-0 p-3">
         <div className="absolute left-1/2 top-0 right-0 bottom-1/2 bg-red-50/60" />
         <div className="absolute left-0 top-1/2 right-1/2 bottom-0 bg-green-50/60" />
-        <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gray-200" />
-        <div className="absolute top-1/2 left-0 right-0 h-px bg-gray-200" />
-        <div className="absolute bottom-1 left-1/2 -translate-x-1/2 text-[9px] text-gray-400 whitespace-nowrap">Capacidad Actual →</div>
-        <div className="absolute left-1 top-1/2 -translate-y-1/2 -rotate-90 text-[9px] text-gray-400 whitespace-nowrap">Riesgo Operacional →</div>
+        <div className="absolute left-1/2 top-0 bottom-0 w-px bg-white/30" />
+        <div className="absolute top-1/2 left-0 right-0 h-px bg-white/30" />
+        <div className="absolute bottom-1 left-1/2 -translate-x-1/2 text-[10px] font-semibold text-white whitespace-nowrap bg-gray-900/95 px-2 py-1 rounded shadow-sm">Capacidad Actual →</div>
+        <div className="absolute left-1 top-1/2 -translate-y-1/2 -rotate-90 text-[10px] font-semibold text-white whitespace-nowrap bg-gray-900/95 px-2 py-1 rounded shadow-sm origin-center">Riesgo Operacional →</div>
         {clusters.map((c, i) => (
           <div
             key={i}
@@ -127,21 +132,21 @@ function RiskMatrix({ clusters, started }) {
             }}
           >
             <div
-              className="w-2.5 h-2.5 rounded-full border-2 border-white shadow-sm"
+              className="w-3 h-3 rounded-full border-2 border-white shadow-md flex-shrink-0"
               style={{
                 background: c.x < 50 && c.y > 50 ? DANGER : c.x > 50 && c.y < 50 ? '#10b981' : WARN,
               }}
             />
             <span
-              className="text-[7px] font-semibold text-navy whitespace-nowrap mt-0.5"
+              className="text-[8px] font-semibold text-white whitespace-nowrap mt-1 bg-gray-900/95 px-1.5 py-0.5 rounded shadow-sm"
               style={{ opacity: started ? 1 : 0, transitionDelay: `${i * 60 + 200}ms` }}
             >
               {c.name}
             </span>
           </div>
         ))}
-        <div className="absolute right-1.5 top-1.5 text-[8px] font-bold text-red-500">CRÍTICO</div>
-        <div className="absolute left-1.5 bottom-1.5 text-[8px] font-bold text-emerald-500">ESTABLE</div>
+        <div className="absolute right-1.5 top-1.5 text-[9px] font-bold text-red-600 bg-white/95 px-1.5 py-0.5 rounded shadow-sm">CRÍTICO</div>
+        <div className="absolute left-1.5 bottom-1.5 text-[9px] font-bold text-primary bg-white/95 px-1.5 py-0.5 rounded shadow-sm">ESTABLE</div>
       </div>
     </div>
   )
@@ -180,10 +185,10 @@ function Donut({ segments, size = 90, started }) {
           />
         )
       })}
-      <text x={cx} y={cy - 4} textAnchor="middle" fontSize="14" fontWeight="800" fill={NAVY}>
+      <text x={cx} y={cy - 4} textAnchor="middle" fontSize="14" fontWeight="800" fill="rgba(255,255,255,0.95)">
         {segments[0]?.value}
       </text>
-      <text x={cx} y={cy + 9} textAnchor="middle" fontSize="7" fill="#6b7280">
+      <text x={cx} y={cy + 9} textAnchor="middle" fontSize="7" fill="rgba(255,255,255,0.7)">
         clusters
       </text>
     </svg>
@@ -307,10 +312,11 @@ export default function CasoSPPPanel({ expanded }) {
 
   const foda = fodaSide === 'negocio' ? fodaNegocio : fodaPersonas
 
+  const navigate = useNavigate()
   const handleCTAClick = (e) => {
     e.preventDefault()
     analytics.ctaClick('Conversemos', 'caso_spp_cta')
-    scrollToSection('#contacto')
+    if (!scrollToSection('#contacto')) navigate({ pathname: '/', hash: 'contacto' })
   }
 
   return (
@@ -319,12 +325,16 @@ export default function CasoSPPPanel({ expanded }) {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className="rounded-2xl overflow-hidden bg-white border border-gray-100/80 shadow-card"
+        className="rounded-2xl overflow-hidden bg-[#0f2035] border border-white/10 shadow-card"
       >
         {/* Header */}
         <div className="bg-navy rounded-t-2xl p-6 md:p-8 text-white">
-          <div className="flex flex-wrap justify-between items-start gap-5">
-            <div>
+          <div className="flex flex-col gap-4">
+            <div className="flex gap-4 items-start">
+              <div className="flex-shrink-0 mt-1 opacity-90">
+                <IconSPP className="w-10 h-10 sm:w-12 sm:h-12" color="rgba(255,255,255,0.9)" />
+              </div>
+              <div className="flex-1 min-w-0">
               <div className="flex flex-wrap gap-2 mb-3">
                 {expanded?.badgeLabels ? (
                   <>
@@ -340,16 +350,17 @@ export default function CasoSPPPanel({ expanded }) {
                 ) : (
                   <>
                     <span className="bg-primary rounded-md px-3 py-1 text-[11px] font-bold uppercase tracking-wider">Workforce Planning</span>
-                    <span className="border border-white/20 rounded-md px-3 py-1 text-[11px] text-white/60">People Analytics</span>
+                    <span className="border border-white/20 rounded-md px-3 py-1 text-[11px] text-white/60">{expanded?.service || 'People Analytics'}</span>
                   </>
                 )}
               </div>
               <h3 className="font-serif text-xl md:text-2xl font-normal leading-tight mb-2">
                 Diagnóstico estratégico de personas para gerencia en transformación
               </h3>
-              <p className="text-white/55 text-sm">Empresa con foco en crecimiento organizacional · Chile</p>
+              <p className="text-white/85 text-sm">Empresa con foco en crecimiento organizacional · Chile</p>
+              </div>
             </div>
-            <div className="flex gap-2 sm:gap-3 flex-1 min-w-0 justify-end flex-nowrap">
+            <div className="flex gap-2 sm:gap-3 flex-nowrap w-full">
               {[
                 { val: c1, suf: '', label: 'líderes participantes' },
                 { val: c2, suf: 'h', label: 'horas de levantamiento' },
@@ -357,8 +368,9 @@ export default function CasoSPPPanel({ expanded }) {
                 { val: c4, suf: '%', label: 'coincidencia en brechas clave' },
               ].map((s, i) => (
                 <div key={i} className="flex-1 min-w-[4.5rem] text-center bg-white/5 rounded-lg py-2 px-2 sm:p-3">
+                  {(expanded?.badgeLabels?.primary?.es || expanded?.service) && <div className="text-[10px] sm:text-xs text-white/80 font-semibold uppercase tracking-wider mb-1 leading-tight">{expanded?.badgeLabels?.primary?.es || expanded?.service}</div>}
                   <div className="text-xl sm:text-2xl font-extrabold font-serif text-white leading-none">{s.val}{s.suf}</div>
-                  <div className="text-[9px] sm:text-[10px] text-white/50 mt-0.5 leading-tight">{s.label}</div>
+                  <div className="text-[9px] sm:text-[10px] text-white/80 mt-0.5 leading-tight">{s.label}</div>
                 </div>
               ))}
             </div>
@@ -366,39 +378,42 @@ export default function CasoSPPPanel({ expanded }) {
         </div>
 
         {/* Context strip */}
-        <div className="flex flex-wrap gap-8 p-6 border-b border-gray-100 bg-gray-50/30">
+        <div className="flex flex-wrap gap-8 p-6 border-b border-white/10 bg-white/5">
           <div className="flex-1 min-w-[200px]">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1.5">El desafío</p>
-            <p className="text-sm text-gray-700 leading-relaxed">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-primary-light mb-1.5">El desafío</p>
+            <p className="text-sm text-white/90 leading-relaxed">
               Organización en etapa de cambio con foco estratégico difuso: equipos sin claridad de prioridades, decisiones lentas y sin respaldo de datos, y roles internos poco definidos.
             </p>
           </div>
           <div className="flex-1 min-w-[200px]">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1.5">La metodología</p>
-            <p className="text-sm text-gray-700 leading-relaxed">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-primary-light mb-1.5">La metodología</p>
+            <p className="text-sm text-white/90 leading-relaxed">
               Diagnóstico integrado con metodología estructurada: levantamiento cualitativo (entrevistas en profundidad), cuantitativo (cuestionarios estandarizados) y análisis de brechas actuales y futuras por perfil de cargo.
             </p>
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 p-1.5 bg-gray-50 border-b border-gray-100">
+        <div className="flex gap-1 p-1.5 bg-white/5 border-b border-white/10">
           {tabs.map((t) => (
             <button
               key={t.id}
               type="button"
               onClick={() => setTab(t.id)}
-              className={`flex-1 py-2 px-1 rounded-lg text-xs font-semibold transition-colors ${
-                tab === t.id ? 'bg-navy text-white' : 'text-gray-500 hover:text-gray-700'
+              className={`flex-1 py-2 px-2 rounded-lg text-xs font-semibold transition-colors flex items-center justify-center gap-1.5 ${
+                tab === t.id ? 'bg-white/10 text-white border-b-2 border-primary-light' : 'text-white/70 hover:text-white/90'
               }`}
             >
-              {t.label}
+              <span>{t.label}</span>
+              <svg className="w-3.5 h-3.5 opacity-70 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
             </button>
           ))}
         </div>
 
         {/* Tab content */}
-        <div className="p-6">
+        <div className="p-6 bg-[#0f2035]">
           {tab === 'foda' && (
             <div className="rounded-xl border border-gray-200 overflow-hidden">
               <div className="flex border-b border-gray-100">
@@ -410,7 +425,7 @@ export default function CasoSPPPanel({ expanded }) {
                     className={`flex-1 py-3.5 border-b-2 text-sm font-semibold transition-all ${
                       fodaSide === s
                         ? 'bg-primary/5 text-primary border-primary'
-                        : 'border-transparent text-gray-400'
+                        : 'border-transparent text-white/80'
                     }`}
                   >
                     FODA {s.charAt(0).toUpperCase() + s.slice(1)}
@@ -440,49 +455,49 @@ export default function CasoSPPPanel({ expanded }) {
                   </div>
                 ))}
               </div>
-              <div className="px-6 py-3 bg-gray-50 border-t border-gray-100">
-                <p className="text-[11px] text-gray-400 m-0">Las barras reflejan el nivel de consenso entre los líderes participantes. Mayor barra = mayor coincidencia en la mención.</p>
+              <div className="px-6 py-3 bg-white/5 border-t border-white/10">
+                <p className="text-[11px] text-white/85 m-0">Las barras reflejan el nivel de consenso entre los líderes participantes. Mayor barra = mayor coincidencia en la mención.</p>
               </div>
             </div>
           )}
 
           {tab === 'capacidades' && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <div className="rounded-xl border border-gray-200 p-6 bg-white">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">Brecha de Capacidades</p>
-                <p className="text-sm font-bold text-navy mb-4">Actual vs. Requerida (3 años)</p>
+              <div className="rounded-xl border border-white/20 p-6 bg-white/5">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-primary-light mb-1">Brecha de Capacidades</p>
+                <p className="text-sm font-bold text-white mb-4">Actual vs. Requerida (3 años)</p>
                 <div className="flex justify-center">
                   <RadarChart data={radarData} started={visible} />
                 </div>
                 <div className="flex gap-4 justify-center mt-3">
                   <div className="flex gap-1.5 items-center">
                     <div className="w-5 h-0.5 rounded" style={{ background: WARN }} />
-                    <span className="text-[11px] text-gray-500">Capacidad actual</span>
+                    <span className="text-[11px] text-white/80">Capacidad actual</span>
                   </div>
                   <div className="flex gap-1.5 items-center">
                     <div className="w-5 h-0.5 rounded bg-primary" />
-                    <span className="text-[11px] text-gray-500">Requerida 2026</span>
+                    <span className="text-[11px] text-white/80">Requerida 2026</span>
                   </div>
                 </div>
               </div>
               <div className="flex flex-col gap-4">
-                <div className="rounded-xl border border-gray-200 p-5 bg-white">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-3">Proyección de Roles (3 años)</p>
+                <div className="rounded-xl border border-white/20 p-5 bg-white/5">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-primary-light mb-3">Proyección de Roles (3 años)</p>
                   <div className="flex items-center gap-5">
                     <Donut segments={donutData} started={visible} size={90} />
                     <div className="flex-1">
                       {donutData.map((d, i) => (
                         <div key={i} className="flex items-center gap-2 mb-1.5">
                           <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: d.color }} />
-                          <span className="text-[11px] text-gray-700 flex-1">{d.label}</span>
+                          <span className="text-[11px] text-white/80 flex-1">{d.label}</span>
                           <span className="text-xs font-bold" style={{ color: d.color }}>{d.value}</span>
                         </div>
                       ))}
                     </div>
                   </div>
                 </div>
-                <div className="rounded-xl border border-gray-200 p-5 bg-white flex-1">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-3">Brechas Prioritarias</p>
+                <div className="rounded-xl border border-white/20 p-5 bg-white/5 flex-1">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-primary-light mb-3">Brechas Prioritarias</p>
                   {[
                     { label: 'Analytics y datos', gap: 2.7, color: DANGER },
                     { label: 'Gestión del cambio', gap: 1.6, color: DANGER },
@@ -492,10 +507,10 @@ export default function CasoSPPPanel({ expanded }) {
                   ].map((b, i) => (
                     <div key={i} className="mb-2.5">
                       <div className="flex justify-between mb-0.5">
-                        <span className="text-xs text-gray-700">{b.label}</span>
+                        <span className="text-xs text-white/80">{b.label}</span>
                         <span className="text-[11px] font-bold" style={{ color: b.color }}>Δ {b.gap.toFixed(1)} pts</span>
                       </div>
-                      <div className="h-1 bg-gray-100 rounded-full overflow-hidden">
+                      <div className="h-1 bg-white/20 rounded-full overflow-hidden">
                         <div
                           className="h-full rounded-full transition-all duration-1000"
                           style={{
@@ -514,22 +529,22 @@ export default function CasoSPPPanel({ expanded }) {
 
           {tab === 'riesgo' && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <div className="rounded-xl border border-gray-200 p-6 bg-white">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">Matriz de Riesgo</p>
-                <p className="text-sm font-bold text-navy mb-4">Capacidad actual vs. Riesgo operacional</p>
+              <div className="rounded-xl border border-white/20 p-6 bg-white/5">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-primary-light mb-1">Matriz de Riesgo</p>
+                <p className="text-sm font-bold text-white mb-4">Capacidad actual vs. Riesgo operacional</p>
                 <RiskMatrix clusters={clusters} started={visible} />
                 <div className="flex gap-3 mt-3 flex-wrap">
                   {[{ c: DANGER, l: 'Crítico' }, { c: WARN, l: 'Atención' }, { c: '#10b981', l: 'Estable' }].map((x) => (
                     <div key={x.l} className="flex gap-1.5 items-center">
                       <div className="w-2 h-2 rounded-full" style={{ background: x.c }} />
-                      <span className="text-[11px] text-gray-500">{x.l}</span>
+                      <span className="text-[11px] text-white/70">{x.l}</span>
                     </div>
                   ))}
                 </div>
               </div>
               <div className="flex flex-col gap-4">
-                <div className="rounded-xl border border-gray-200 p-5 bg-white">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-3">Disponibilidad en Mercado Laboral</p>
+                <div className="rounded-xl border border-white/20 p-5 bg-white/5">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-primary-light mb-3">Disponibilidad en Mercado Laboral</p>
                   {[
                     { label: 'Dificultad alta para atraer', pct: 53, color: DANGER },
                     { label: 'Dificultad media', pct: 26, color: WARN },
@@ -537,10 +552,10 @@ export default function CasoSPPPanel({ expanded }) {
                   ].map((b, i) => (
                     <div key={i} className="mb-3">
                       <div className="flex justify-between mb-1">
-                        <span className="text-xs text-gray-700">{b.label}</span>
+                        <span className="text-xs text-white/80">{b.label}</span>
                         <span className="text-xs font-bold" style={{ color: b.color }}>{b.pct}%</span>
                       </div>
-                      <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                      <div className="h-1.5 bg-white/20 rounded-full overflow-hidden">
                         <div
                           className="h-full rounded-full transition-all duration-1000"
                           style={{
@@ -553,15 +568,15 @@ export default function CasoSPPPanel({ expanded }) {
                     </div>
                   ))}
                 </div>
-                <div className="rounded-xl border border-red-200 bg-red-50 p-4">
-                  <p className="text-[11px] font-bold text-red-500 uppercase tracking-wider mb-2">Alerta Principal</p>
-                  <p className="text-sm text-gray-700 leading-relaxed m-0">
+                <div className="rounded-xl border border-red-400/40 bg-red-900/30 p-4">
+                  <p className="text-[11px] font-bold text-red-400 uppercase tracking-wider mb-2">Alerta Principal</p>
+                  <p className="text-sm text-white/85 leading-relaxed m-0">
                     <strong>54% de los perfiles</strong> requiere evolución del rol en los próximos 3 años. Los perfiles de Liderazgo Senior y Planificación concentran el mayor riesgo: brechas altas + criticidad operacional + mercado laboral competitivo.
                   </p>
                 </div>
-                <div className="rounded-xl border border-primary/30 bg-primary/5 p-4">
-                  <p className="text-[11px] font-bold text-primary uppercase tracking-wider mb-2">Oportunidad</p>
-                  <p className="text-sm text-gray-700 leading-relaxed m-0">
+                <div className="rounded-xl border border-primary/40 bg-primary/20 p-4">
+                  <p className="text-[11px] font-bold text-primary-light uppercase tracking-wider mb-2">Oportunidad</p>
+                  <p className="text-sm text-white/85 leading-relaxed m-0">
                     Los perfiles de Operaciones y Soporte Digital muestran <strong>capacidad actual adecuada</strong> y bajo riesgo, siendo candidatos naturales para externalización parcial o restructuración sin impacto operacional relevante.
                   </p>
                 </div>
@@ -577,14 +592,14 @@ export default function CasoSPPPanel({ expanded }) {
                   initial={{ opacity: 0, y: 12 }}
                   animate={visible ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.4, delay: i * 0.06 }}
-                  className="flex gap-4 items-start p-4 rounded-xl border border-gray-200 bg-white"
+                  className="flex gap-4 items-start p-4 rounded-xl border border-white/20 bg-white/5"
                 >
                   <div className="w-8 h-8 rounded-lg bg-navy text-white flex items-center justify-center font-extrabold text-sm flex-shrink-0">
                     {r.letra}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex flex-wrap justify-between items-start gap-2 mb-1">
-                      <span className="text-sm font-bold text-navy">{r.titulo}</span>
+                      <span className="text-sm font-bold text-white">{r.titulo}</span>
                       <div className="flex gap-1.5">
                         <span
                           className="text-[10px] font-bold px-2 py-0.5 rounded-full"
@@ -592,12 +607,12 @@ export default function CasoSPPPanel({ expanded }) {
                         >
                           {r.urgencia}
                         </span>
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-white/70">
                           Impacto {r.impacto}
                         </span>
                       </div>
                     </div>
-                    <p className="text-sm text-gray-600 leading-relaxed m-0">{r.desc}</p>
+                    <p className="text-sm text-white/75 leading-relaxed m-0">{r.desc}</p>
                   </div>
                 </m.div>
               ))}
@@ -606,12 +621,12 @@ export default function CasoSPPPanel({ expanded }) {
         </div>
 
         {/* Footer CTA */}
-        <div className="flex flex-wrap justify-between items-center gap-3 p-4 md:p-6 border-t border-gray-100 bg-gray-50/50">
-          <p className="text-sm text-gray-500 m-0">¿Necesitas un diagnóstico estratégico de personas para tu organización?</p>
+        <div className="flex flex-wrap justify-between items-center gap-3 p-4 md:p-6 border-t border-white/10 bg-primary/20 border border-primary/30 rounded-b-2xl">
+          <p className="text-sm text-white/60 m-0">¿Necesitas un diagnóstico estratégico de personas para tu organización?</p>
           <a
             href="#contacto"
             onClick={handleCTAClick}
-            className="inline-flex items-center gap-1.5 bg-primary hover:bg-primary-dark text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            className="inline-flex items-center gap-1.5 bg-primary hover:bg-primary-dark text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-light focus-visible:ring-offset-2 ring-offset-[#0f2035]"
           >
             Conversemos
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

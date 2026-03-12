@@ -6,6 +6,16 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://www.hranalytics.cl/servicios</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.hranalytics.cl/casos</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://www.hranalytics.cl/propuesta-de-valor</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -16,60 +26,74 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.hranalytics.cl/servicios/planificacion-estrategica-personas</loc>
-    <priority>0.9</priority>
+    <loc>https://www.hranalytics.cl/servicios#planificacion-estrategica-personas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.hranalytics.cl/servicios/analisis-predictivo-riesgo-fuga</loc>
-    <priority>0.9</priority>
+    <loc>https://www.hranalytics.cl/servicios#analisis-predictivo-riesgo-fuga</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.hranalytics.cl/servicios/paneles-kpi-analitica-rrhh</loc>
-    <priority>0.9</priority>
+    <loc>https://www.hranalytics.cl/servicios#paneles-kpi-analitica-rrhh</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.hranalytics.cl/servicios/compensaciones-incentivos-presupuesto</loc>
-    <priority>0.9</priority>
+    <loc>https://www.hranalytics.cl/servicios#compensaciones-incentivos-presupuesto</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.hranalytics.cl/servicios/diseno-estructura-organizacional</loc>
-    <priority>0.9</priority>
+    <loc>https://www.hranalytics.cl/servicios#diseno-estructura-organizacional</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.hranalytics.cl/servicios/automatizacion-procesos-rrhh</loc>
-    <priority>0.9</priority>
+    <loc>https://www.hranalytics.cl/servicios#automatizacion-procesos-rrhh</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.hranalytics.cl/servicios/alineamiento-estrategico-equipos</loc>
-    <priority>0.9</priority>
+    <loc>https://www.hranalytics.cl/servicios#alineamiento-estrategico-equipos</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.hranalytics.cl/servicios/planificacion-sucesion</loc>
-    <priority>0.9</priority>
+    <loc>https://www.hranalytics.cl/servicios#planificacion-sucesion</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.hranalytics.cl/servicios/equidad-salarial-genero</loc>
-    <priority>0.9</priority>
+    <loc>https://www.hranalytics.cl/servicios#equidad-salarial-genero</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.hranalytics.cl/servicios/ausentismo-focos-gestion</loc>
-    <priority>0.9</priority>
+    <loc>https://www.hranalytics.cl/servicios#ausentismo-focos-gestion</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.hranalytics.cl/servicios/proyeccion-equilibrio-genero</loc>
-    <priority>0.9</priority>
+    <loc>https://www.hranalytics.cl/servicios#proyeccion-equilibrio-genero</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.hranalytics.cl/servicios/modelos-negociacion-sindical</loc>
-    <priority>0.9</priority>
+    <loc>https://www.hranalytics.cl/servicios#modelos-negociacion-sindical</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.hranalytics.cl/servicios/capacitacion-planificacion-estrategica</loc>
-    <priority>0.9</priority>
+    <loc>https://www.hranalytics.cl/servicios#capacitacion-planificacion-estrategica</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.hranalytics.cl/servicios/compromiso-desempeno-equipos</loc>
-    <priority>0.9</priority>
+    <loc>https://www.hranalytics.cl/servicios#compromiso-desempeno-equipos</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.hranalytics.cl/privacidad</loc>

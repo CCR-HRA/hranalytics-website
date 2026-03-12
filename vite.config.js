@@ -6,8 +6,13 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   const siteVerification = env.VITE_GOOGLE_SITE_VERIFICATION || ''
   const gtmId = env.VITE_GTM_ID || ''
+  // Cache-busting para imágenes de servicios (evita que el navegador sirva versiones cacheadas)
+  const imgVersion = Date.now().toString()
 
   return {
+    define: {
+      __IMG_VERSION__: JSON.stringify(imgVersion),
+    },
     server: { host: true },
     build: {
       rollupOptions: {

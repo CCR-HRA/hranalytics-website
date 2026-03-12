@@ -1,12 +1,17 @@
-import { useEffect, useRef, useState } from 'react'
-
 /**
  * Monta children solo cuando el marcador entra cerca del viewport.
+ * Componente de utilidad; no expone mensajes al usuario. Interfaz en español.
  * rootMargin grande para "pre-cargar" antes de que el usuario llegue.
+ * forceMount: si true, monta de inmediato (útil al navegar a #contacto para que el scroll llegue al final).
  */
-export default function LazyMount({ children, rootMargin = '700px', minHeight = 1 }) {
-  const [mounted, setMounted] = useState(false)
+import { useEffect, useRef, useState } from 'react'
+export default function LazyMount({ children, rootMargin = '700px', minHeight = 1, forceMount = false }) {
+  const [mounted, setMounted] = useState(forceMount)
   const markerRef = useRef(null)
+
+  useEffect(() => {
+    if (forceMount) setMounted(true)
+  }, [forceMount])
 
   useEffect(() => {
     if (mounted) return

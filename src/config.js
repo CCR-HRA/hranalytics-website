@@ -63,6 +63,9 @@ export const WHATSAPP_URL =
 export const LINKEDIN_URL = trim(import.meta.env.VITE_LINKEDIN_URL) || 'https://www.linkedin.com/in/cristianhranalytics/'
 export const LINKEDIN_HANDLE = trim(import.meta.env.VITE_LINKEDIN_HANDLE) || 'cristianhranalytics'
 
+// Login social (gate del chat)
+export const GOOGLE_CLIENT_ID = trim(import.meta.env.VITE_GOOGLE_CLIENT_ID) || ''
+
 // LinkedIn empresa
 export const LINKEDIN_COMPANY_URL =
   trim(import.meta.env.VITE_LINKEDIN_COMPANY_URL) || 'https://linkedin.com/company/hr-analytics-consulting'

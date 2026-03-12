@@ -38,6 +38,7 @@ export default function BackToTop() {
   }
 
   const handleSectionClick = (href) => {
+    setOpen(false)
     if (href === '#inicio') {
       scrollTop()
       return
@@ -45,8 +46,9 @@ export default function BackToTop() {
     if (href.startsWith('#')) {
       navigate({ pathname: '/', hash: href.slice(1) })
       requestAnimationFrame(() => scrollToSection(href))
+    } else if (href.startsWith('/')) {
+      navigate(href)
     }
-    setOpen(false)
   }
 
   return (

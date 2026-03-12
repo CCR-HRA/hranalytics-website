@@ -1,3 +1,6 @@
+/**
+ * Propuesta de valor compacta. Contenido y mensajes de interfaz en español.
+ */
 import { Link } from 'react-router-dom'
 import { m } from 'framer-motion'
 import TiltCard from './TiltCard'
@@ -6,7 +9,7 @@ import { valueProposition as content } from '../data/content'
 
 export default function ValuePropCompact() {
   return (
-    <section className="py-section lg:py-section-lg bg-gray-50/60 z-[2]">
+    <section className="pt-section lg:pt-section-lg pb-8 lg:pb-10 bg-white z-[2]">
       <div className="container-premium">
         <SectionReveal className="section-header">
           <RevealItem>

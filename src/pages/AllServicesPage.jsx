@@ -1,3 +1,6 @@
+/**
+ * Página de todos los servicios. Contenido y mensajes de interfaz en español.
+ */
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { m, AnimatePresence } from 'framer-motion'
@@ -10,7 +13,7 @@ import {
   Code, Calculator, GitCompare, ScanSearch, Workflow, Terminal, PackageCheck,
   Palette, BookOpen, BarChart, Presentation, ClipboardEdit, GraduationCap, Activity, FileBarChart,
 } from 'lucide-react'
-import { getServicesByPillar } from '../data/servicesCatalog'
+import { getServicesByPillar, PILAR_IDS } from '../data/servicesCatalog'
 
 const ICON_MAP = {
   Target, Users, TrendingDown, Map, Compass, GitBranch, Layout, BarChart2,
@@ -41,13 +44,12 @@ export default function AllServicesPage() {
 
   return (
     <div className="flex flex-col bg-gray-50/50 pb-page-bottom">
-      {/* Hero inicial */}
-      <section className="bg-primary text-white pt-24 pb-8 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.03)_50%,transparent_100%)] bg-[length:48px_48px]" aria-hidden="true" />
-        <div className={`${contentClass} relative z-10 pt-4`}>
+      {/* Hero inicial: fondo blanco para evitar franja verde-teal bajo el header */}
+      <section className="bg-white text-gray-900 pt-header pb-6 relative overflow-hidden border-b border-gray-100">
+        <div className={`${contentClass} relative z-10 pt-2`}>
           <Link
             to="/#servicios"
-            className="inline-flex items-center gap-2 text-white/70 hover:text-white font-medium text-sm py-2 mb-4 transition-colors"
+            className="inline-flex items-center gap-2 text-gray-500 hover:text-primary font-medium text-sm py-2 mb-4 transition-colors"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -55,12 +57,15 @@ export default function AllServicesPage() {
             Volver a inicio
           </Link>
           <m.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-serif leading-tight">
-              Nuestros Servicios
+            <p className="section-eyebrow text-primary text-[10px] tracking-widest font-semibold uppercase">
+              Lo que hacemos
+            </p>
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-serif leading-tight text-gray-900 mt-1">
+              Servicios y metodologías
             </h1>
             <div className="mt-2 overflow-x-auto overflow-y-hidden -mx-1 px-1">
-              <p className="text-white/80 text-sm sm:text-base lg:text-lg !whitespace-nowrap inline-block min-w-max">
-                Consultoría en People Analytics: estrategia, analítica, compensaciones y desarrollo.
+              <p className="text-gray-600 text-sm sm:text-base lg:text-lg !whitespace-nowrap inline-block min-w-max">
+                Metodologías probadas para decisiones estratégicas en RR.HH.
               </p>
             </div>
           </m.div>
@@ -75,24 +80,31 @@ export default function AllServicesPage() {
       {/* Navegación por pilares */}
       <nav className="sticky top-[var(--header-height,5.5rem)] z-30 bg-white/95 backdrop-blur-sm border-b border-gray-100 py-2" aria-label="Navegación por pilares">
         <div className={`${contentClass} flex flex-wrap gap-2 justify-center`}>
-          {pillars.map((pilar) => (
-            <a
-              key={pilar.pillarKey}
-              href={`#pilar-${pilar.pillarKey}`}
-              className="px-3 py-1.5 text-xs font-bold text-navy/70 hover:text-primary uppercase tracking-wider transition-colors rounded"
-            >
-              {pilar.category}
-            </a>
-          ))}
+          {pillars.map((pilar) => {
+            const pilarId = PILAR_IDS[pilar.pillarKey]
+            if (!pilarId) return null
+            return (
+              <a
+                key={pilar.pillarKey}
+                href={`#${pilarId}`}
+                className="px-3 py-1.5 text-xs font-bold text-navy/70 hover:text-primary uppercase tracking-wider transition-colors rounded"
+              >
+                {pilar.category}
+              </a>
+            )
+          })}
         </div>
       </nav>
 
       {/* Contenido: cada pilar con sus servicios (acordeón) */}
       <div className={contentClass}>
-        {pillars.map((pilar) => (
+        {pillars.map((pilar) => {
+          const pilarId = PILAR_IDS[pilar.pillarKey]
+          if (!pilarId) return null
+          return (
           <section
             key={pilar.pillarKey}
-            id={`pilar-${pilar.pillarKey}`}
+            id={pilarId}
             className="scroll-mt-[calc(var(--header-height,5.5rem)+4rem)] py-8 first:pt-6"
           >
             <div className="mb-6">
@@ -119,7 +131,8 @@ export default function AllServicesPage() {
               ))}
             </div>
           </section>
-        ))}
+          )
+        })}
       </div>
     </div>
   )

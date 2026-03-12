@@ -13,8 +13,8 @@
 
 @layer base {
   :root {
-    --section-padding-y: 2.5rem;
-    --section-padding-y-lg: 3.5rem;
+    --section-padding-y: 2rem;
+    --section-padding-y-lg: 2.75rem;
     --container-max: 72rem;
   }
 
@@ -29,21 +29,21 @@
   }
 
   html {
-    scroll-behavior: auto;
-    scroll-padding-top: var(--header-height, 90px);
+    scroll-behavior: smooth;
+    scroll-padding-top: 0;
   }
 
-  @media (prefers-reduced-motion: no-preference) {
+  @media (prefers-reduced-motion: reduce) {
     html {
-      scroll-behavior: smooth;
+      scroll-behavior: auto;
     }
   }
 
-  /* Secciones con id: margen para header fijo (scrollIntoView / anclas). Usa --header-height inyectada por Header. */
+  /* Secciones con id: margen para header fijo (scrollIntoView / anclas). Una sola fuente de offset evita doble espacio. */
   main section[id],
   main [id] {
-    scroll-margin-top: var(--header-height, 90px);
-    scroll-margin-bottom: 2rem;
+    scroll-margin-top: calc(var(--header-height, 76px) + 12px);
+    scroll-margin-bottom: 0;
   }
   main section[id] {
     isolation: isolate;
@@ -109,9 +109,9 @@
     max-width: var(--container-max);
   }
 
-  /* Encabezado de sección unificado */
+  /* Encabezado de sección unificado (márgenes reducidos para evitar bandas blancas) */
   .section-header {
-    @apply text-center mb-12 lg:mb-16;
+    @apply text-center mb-8 lg:mb-10;
   }
 
   .section-header .section-eyebrow {

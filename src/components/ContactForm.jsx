@@ -391,7 +391,7 @@ export default function ContactForm() {
           ) : (
             <div className="text-center py-2">
               <p className="text-gray-700 text-sm mb-5">
-                El formulario no está configurado. Escríbenos por WhatsApp o correo.
+                Estamos aquí para responder sus consultas. Puede contactarnos directamente por WhatsApp o correo electrónico.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center items-center flex-wrap">
                 {WHATSAPP_URL && (
